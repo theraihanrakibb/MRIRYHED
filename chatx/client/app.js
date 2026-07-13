@@ -75,6 +75,7 @@ function enter() {
   $("balance").textContent = users[me].wallet.toLocaleString();
   renderChatList(); renderFeed(); renderFriends(); renderAll(); renderTxs();
   broadcast({ type: "presence", user: me, online: true });
+  if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: "hello", user: me }));
 }
 $("enterBtn").addEventListener("click", enter);
 $("usernameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") enter(); });
@@ -87,13 +88,18 @@ function broadcast(obj) {
 if (bc) bc.onmessage = (e) => handleRemote(e.data);
 
 /* ---------- optional real-time server (Node + WebSocket) ---------- */
+let wsTries = 0;
+const WS_MAX_TRIES = 6;
 function connectWS() {
   if (!("WebSocket" in window)) return;
-  const proto = location.protocol === "https:" ? "wss" : "ws";
-  try { ws = new WebSocket(proto + "://" + location.host); } catch { return; }
+  const url = window.CHAT_RELAY
+    ? window.CHAT_RELAY
+    : (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host;
+  if (wsTries >= WS_MAX_TRIES) return; // stop hammering hosts without WebSocket (e.g. GitHub Pages)
+  try { ws = new WebSocket(url); } catch { return; }
+  ws.onopen = () => { wsTries = 0; if (me) ws.send(JSON.stringify({ type: "hello", user: me })); };
   ws.onmessage = (e) => { try { handleRemote(JSON.parse(e.data)); } catch { /* ignore */ } };
-  ws.onopen = () => { if (me) ws.send(JSON.stringify({ type: "hello", user: me })); };
-  ws.onclose = () => { ws = null; setTimeout(connectWS, 3000); };
+  ws.onclose = () => { ws = null; wsTries++; if (wsTries < WS_MAX_TRIES) setTimeout(connectWS, 3000); };
   ws.onerror = () => { try { ws.close(); } catch {} };
 }
 function handleRemote(msg) {
@@ -300,6 +306,7 @@ if (saved && users[saved]) {
   $("balance").textContent = users[me].wallet.toLocaleString();
   renderChatList(); renderFeed(); renderFriends(); renderAll(); renderTxs();
   broadcast({ type: "presence", user: me, online: true });
+  if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: "hello", user: me }));
 } else {
   // leave login visible; clicking enter() wires everything
 }

@@ -1,0 +1,15 @@
+# Deploy the MRIRYHED Chat realtime server — free on Render.
+# After connecting the repo, Render runs `node chatx/server/server.js`,
+# which serves the chat at "/" and handles WebSocket on the same origin.
+services:
+  - type: web
+    name: mrihat
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: "npm install"
+    startCommand: "node chatx/server/server.js"
+    healthCheckPath: "/"
+    envVars:
+      - key: PORT
+        value: "3000"

@@ -26,8 +26,9 @@
 
 MRIRYHED collects four independently-shippable web products under a single identity. Every web
 app is **self-contained vanilla HTML/CSS/JS — no build step, no framework, no install**. Open the
-file and it works. The machine-learning work lives in its own repo:
-[**ML-DL-AI**](https://github.com/theraihanrakibb/ML-DL-AI).
+file and it works. My separate machine-learning work is a **personal portfolio** in its own repo,
+[**Raihan's ML Projects (ML-DL-AI)**](https://github.com/theraihanrakibb/ML-DL-AI) — it is **not**
+part of the MRIRYHED suite.
 
 | App | Folder | What it does | Stack |
 |-----|--------|--------------|-------|
@@ -35,7 +36,7 @@ file and it works. The machine-learning work lives in its own repo:
 | **MRIRYHED Code** | [`online-code-editor/`](online-code-editor) | In-browser IDE that **runs JS & Python** (Pyodide) and routes other languages to the **MRIRYHED Agent** (LLM). | Vanilla JS · Pyodide · LLM API |
 | **MRIRYHED Zodiac** | [`zodiac-calculator/`](zodiac-calculator) | Cosmic profile: Western + Chinese zodiac + MBTI with a generated summary & compatibility check. | Vanilla JS |
 | **MRIRYHED Chat** | [`chatx/client/`](chatx/client) | Realtime social — chat, feed, friends & a wallet. Client-side by default, with **optional Node + WebSocket server** for true cross-device realtime. | Vanilla JS · WebSocket · localStorage |
-| **ML / DL / AI** | [theraihanrakibb/ML-DL-AI](https://github.com/theraihanrakibb/ML-DL-AI) | 8 ML mini-projects: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
+| **Raihan's ML Projects** | [theraihanrakibb/ML-DL-AI](https://github.com/theraihanrakibb/ML-DL-AI) | Personal ML/DL/AI portfolio: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
 
 ---
 

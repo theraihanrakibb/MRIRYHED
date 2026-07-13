@@ -1,56 +1,52 @@
-# MRIRYHED Chat · Realtime Social
+# MRIRYHED Chat — realtime server
 
-A full realtime chat platform — **chat, feed, friends, and a wallet** — in the spirit of
-WeChat but with a cleaner, more modern interface. Built by **MRIRYHED** as part of the Raihan
-portfolio. It's a **100% client-side web app**: no server, no build step, no API keys. Just
-open `index.html`.
+The chat works **out of the box**: open `chatx/client/index.html` (or the GitHub Pages link)
+and it runs as a local demo — two tabs in the same browser sync live via `BroadcastChannel`.
 
-```
-chatx/
-├── client/
-│   ├── index.html
-│   ├── style.css
-│   └── app.js
-├── .gitignore
-└── README.md
-```
-
-## Features
-
-- **Realtime chat** — 1:1 messaging. Open the app in two browser tabs with two usernames
-  and messages sync live between them (via `BroadcastChannel`).
-- **Feed** — post status updates and like friends' posts; new posts & likes stream live.
-- **Friends** — add anyone on MRIRYHED Chat by username, see online/offline presence, jump into a chat.
-- **Wallet (simulated)** — every user starts with **5,000 CXC**. Send money to friends;
-  balances & transaction history update live. *No real currency — purely a demo wallet.*
-- **Presence** — live online/offline indicators.
-- **Dark / light theme** — toggle in the sidebar; saved to `localStorage`.
-- **Seeded demo** — comes pre-populated with a few users (Maya, Leo, Priya, Aria), sample
-  messages, feed posts, and a transaction, so it feels alive on first open.
-
-## How it works
-
-State (users, messages, feed, friendships, wallets, transactions) is stored in the browser's
-**`localStorage`**. Cross-tab realtime sync uses the **`BroadcastChannel`** API. There is no
-backend — everything runs in the browser.
-
-## Run
-
-Just open the file:
+For **real cross-device realtime** (chat with friends on other phones/laptops), run the
+included zero-dependency Node + WebSocket server. It serves the chat UI *and* relays live
+messages, presence, feed and wallet updates between every connected browser.
 
 ```bash
-# option A — double-click client/index.html, or:
-# option B — serve it (recommended for a clean origin)
-cd client
-python -m http.server 8000
-# then visit http://localhost:8000
+cd chatx/server
+npm start          # or: node server.js   (listens on :3000)
+# open http://localhost:3000
 ```
 
-> **Tip:** open the app in two tabs with different usernames (e.g. `you` and `friend`) to see
-> realtime chat, feed, and wallet sync between them. Clearing site data (localStorage) resets
-> the seeded demo.
+No `npm install` needed — the server has zero dependencies.
 
----
+## Deploy free (one click)
 
-Part of the **MRIRYHED** suite: **MRIRYHED Weather**, **MRIRYHED Code**, **MRIRYHED Zodiac**,
-**MRIRYHED Chat** (this app), and **MRIRYHED Mind** (ML).
+GitHub Pages can't serve WebSockets, so deploy this tiny server to a free Node host. Both
+options below read `render.yaml` / `railway.json` from the repo root.
+
+**Render (recommended — free, WebSocket-friendly):**
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/theraihanrakibb/MRIRYHED)
+
+> Replace the repo owner in the button URL if needed: `https://render.com/deploy?repo=https://github.com/<you>/MRIRYHED`
+
+**Railway:**
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?repo=https://github.com/theraihanrakibb/MRIRYHED)
+
+After deploy you get a URL like `https://mrihat.onrender.com`. Open it and the chat is live
+for everyone. (Render's free tier spins down when idle — the first connect after a pause takes
+~30s to wake up.)
+
+## Point the GitHub Pages chat at your server (optional)
+
+The GitHub Pages build stays a local demo unless you tell it where your server lives. Set the
+relay in `chatx/client/relay.js`:
+
+```js
+window.CHAT_RELAY = "wss://mrihat.onrender.com";   // your deployed wss URL
+```
+
+Then the Pages chat talks to your server in real time too. Leave it `""` to auto-use
+same-origin when the page is served by the Node server.
+
+## Protocol
+
+The client and server exchange JSON messages (`{type, ...}`): `presence`, `message`,
+`feed-new`, `feed-like`, `friends`, `wallet`, `tx-new`, and a `hello`/`roster` handshake.
+The server is a dumb relay — it doesn't store anything — so the client-side `localStorage`
+state remains the source of truth.
