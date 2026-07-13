@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaiScope · Cosmic Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme">☀︎</button>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+
+    <main class="card">
+        <header class="card__head">
+            <span class="brand">✦ RaiScope <em>by RaiVerse</em></span>
+            <h1>Cosmic Profile</h1>
+            <p class="sub">Your Western sign, Chinese zodiac &amp; MBTI — decoded into one personality reading.</p>
+        </header>
+
+        <section class="field">
+            <label for="year">birth date</label>
+            <div class="row">
+                <input type="number" id="year" placeholder="year" min="1920" max="2026" aria-label="year">
+                <input type="number" id="month" placeholder="month" min="1" max="12" aria-label="month">
+                <input type="number" id="day" placeholder="day" min="1" max="31" aria-label="day">
+            </div>
+        </section>
+
+        <section class="field">
+            <label>MBTI</label>
+            <div class="mbti-grid" id="mbtiContainer">
+                <button type="button" class="mbti-tag" data-mbti="INFJ">INFJ</button>
+                <button type="button" class="mbti-tag" data-mbti="ENFJ">ENFJ</button>
+                <button type="button" class="mbti-tag" data-mbti="INTJ">INTJ</button>
+                <button type="button" class="mbti-tag" data-mbti="ISFJ">ISFJ</button>
+                <button type="button" class="mbti-tag" data-mbti="ENTP">ENTP</button>
+                <button type="button" class="mbti-tag" data-mbti="ESFJ">ESFJ</button>
+                <button type="button" class="mbti-tag" data-mbti="INFP">INFP</button>
+                <button type="button" class="mbti-tag" data-mbti="ENFP">ENFP</button>
+                <button type="button" class="mbti-tag" data-mbti="ISTJ">ISTJ</button>
+                <button type="button" class="mbti-tag" data-mbti="ESTJ">ESTJ</button>
+                <button type="button" class="mbti-tag" data-mbti="INTP">INTP</button>
+                <button type="button" class="mbti-tag" data-mbti="ENTJ">ENTJ</button>
+                <button type="button" class="mbti-tag" data-mbti="ISFP">ISFP</button>
+                <button type="button" class="mbti-tag" data-mbti="ESFP">ESFP</button>
+                <button type="button" class="mbti-tag" data-mbti="ISTP">ISTP</button>
+                <button type="button" class="mbti-tag" data-mbti="ESTP">ESTP</button>
+            </div>
+        </section>
+
+        <button class="action-btn" id="checkBtn">Reveal Profile →</button>
+
+        <section class="profile" id="profile" hidden>
+            <div class="pcards">
+                <article class="pcard" id="westCard">
+                    <span class="pcard__tag">Western</span>
+                    <div class="pcard__icon" id="westIcon">♈</div>
+                    <h3 id="westName">—</h3>
+                    <p class="pcard__meta" id="westMeta">—</p>
+                    <p class="pcard__traits" id="westTraits">—</p>
+                    <p class="pcard__desc" id="westDesc">—</p>
+                </article>
+                <article class="pcard" id="chinaCard">
+                    <span class="pcard__tag">Chinese</span>
+                    <div class="pcard__icon" id="chinaIcon">🐉</div>
+                    <h3 id="chinaName">—</h3>
+                    <p class="pcard__meta" id="chinaMeta">—</p>
+                    <p class="pcard__traits" id="chinaTraits">—</p>
+                    <p class="pcard__desc" id="chinaDesc">—</p>
+                </article>
+                <article class="pcard" id="mbtiCard">
+                    <span class="pcard__tag">MBTI</span>
+                    <div class="pcard__icon" id="mbtiIcon">🧠</div>
+                    <h3 id="mbtiName">—</h3>
+                    <p class="pcard__meta" id="mbtiMeta">—</p>
+                    <p class="pcard__traits" id="mbtiTraits">—</p>
+                    <p class="pcard__desc" id="mbtiDesc">—</p>
+                </article>
+            </div>
+            <div class="summary">
+                <span class="summary__label">your reading</span>
+                <p id="summaryText">—</p>
+            </div>
+        </section>
+
+        <section class="compat" id="compat">
+            <h3 class="compat__title">💞 Compatibility</h3>
+            <p class="compat__hint">Enter a partner's birth date to see how your cosmic energies align.</p>
+            <div class="row">
+                <input type="number" id="pYear" placeholder="partner year" min="1920" max="2026" aria-label="partner year">
+                <input type="number" id="pMonth" placeholder="mo" min="1" max="12" aria-label="partner month">
+                <input type="number" id="pDay" placeholder="day" min="1" max="31" aria-label="partner day">
+            </div>
+            <button class="compat__btn" id="compatBtn">Check Match</button>
+            <div class="compat__result" id="compatResult" hidden>
+                <div class="compat__pct" id="compatPct">—</div>
+                <p id="compatDesc">—</p>
+            </div>
+        </section>
+
+        <footer class="footnote">⚡ A RaiVerse experience</footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

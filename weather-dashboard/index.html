@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaiCast · Weather by RaiVerse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="scene scene--clouds" id="scene">
+  <div class="sky-glow" aria-hidden="true"></div>
+
+  <!-- top-right control cluster: location + theme -->
+  <div class="controls">
+    <button class="ctl ctl--loc" id="myLocBtn" title="Use my current location">📍</button>
+    <button class="ctl ctl--theme" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme">☀︎</button>
+    <button class="ctl ctl--notes" id="notesBtn" title="My notes">📝</button>
+    <button class="ctl ctl--list" id="listToggle" title="Saved locations">☰</button>
+  </div>
+
+  <main class="shell">
+    <header class="masthead">
+      <span class="brand"><span class="brand__dot"></span> RaiCast <em>by RaiVerse</em></span>
+    </header>
+
+    <section class="panel">
+      <form class="search" id="searchForm" autocomplete="off">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input type="text" id="cityInput" placeholder="Search any city…" spellcheck="false" />
+        <button type="submit" class="search__btn" id="searchBtn" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <div class="unit" role="group" aria-label="Temperature unit">
+          <button type="button" class="unit__btn is-active" data-unit="metric">°C</button>
+          <button type="button" class="unit__btn" data-unit="imperial">°F</button>
+        </div>
+      </form>
+
+      <p class="status" id="status" role="status"></p>
+
+      <article class="weather" id="weather">
+        <div class="weather__top">
+          <div class="weather__place">
+            <h1 class="weather__city" id="cityName">—</h1>
+            <p class="weather__meta">
+              <span class="country-pill" id="countryPill">—</span>
+              <span id="localTime">—</span>
+            </p>
+          </div>
+          <img class="weather__icon" id="weatherIcon" src="images/clear.png" alt="" />
+        </div>
+
+        <div class="weather__hero">
+          <div class="weather__temp" id="temp">--<span class="unit-sym">°</span></div>
+          <div class="weather__cond">
+            <p class="weather__desc" id="condition">—</p>
+            <p class="weather__feels">Feels like <span id="feelsLike">--°</span></p>
+          </div>
+        </div>
+
+        <div class="grid" id="stats">
+          <div class="stat"><span class="stat__label">Humidity</span><span class="stat__value" id="humidity">--%</span></div>
+          <div class="stat"><span class="stat__label">Wind</span><span class="stat__value" id="wind">--</span></div>
+          <div class="stat"><span class="stat__label">Pressure</span><span class="stat__value" id="pressure">-- hPa</span></div>
+          <div class="stat"><span class="stat__label">Visibility</span><span class="stat__value" id="visibility">-- km</span></div>
+          <div class="stat"><span class="stat__label">Sunrise</span><span class="stat__value" id="sunrise">--:--</span></div>
+          <div class="stat"><span class="stat__label">Sunset</span><span class="stat__value" id="sunset">--:--</span></div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- saved-locations drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__head">
+      <span>Saved locations</span>
+      <button class="icon-btn" id="drawerClose" aria-label="Close">✕</button>
+    </div>
+    <ul class="loc-list" id="locList"></ul>
+  </div>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- notes drawer -->
+  <div class="drawer notes" id="notesDrawer" aria-hidden="true">
+    <div class="drawer__head">
+      <span>📝 My notes</span>
+      <button class="icon-btn" id="notesClose" aria-label="Close">✕</button>
+    </div>
+    <p class="notes__hint">Saved on this device · visible in light &amp; dark mode.</p>
+    <textarea id="notesArea" placeholder="Jot down anything…"></textarea>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

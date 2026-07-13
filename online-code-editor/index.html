@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaiForge · Code Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button class="theme-switch" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+    <span class="ts-sun">☀︎</span><span class="ts-moon">☾</span><span class="ts-knob"></span>
+  </button>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark">⚡</span>
+      <span class="brand__name">RaiForge</span>
+      <span class="brand__sub">by RaiVerse</span>
+    </div>
+    <div class="tools">
+      <select id="langSelect" class="lang" aria-label="Language"></select>
+      <label class="switch" id="autoWrap" title="Re-run automatically as you type">
+        <input type="checkbox" id="autoRun" checked />
+        <span class="switch__track"><span class="switch__thumb"></span></span>
+        <span class="switch__label">Auto</span>
+      </label>
+      <button class="btn btn--ghost" id="copyBtn" title="Copy code">Copy</button>
+      <button class="btn btn--ghost" id="dlBtn" title="Download code">Save</button>
+      <button class="btn btn--agent" id="agentBtn" title="Forge Agent (AI)">🤖 Agent</button>
+      <button class="btn btn--run" id="runBtn">▶ Run</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="editor-pane">
+      <div class="tabs" id="editorTabs" role="tablist">
+        <button class="tab is-active" data-lang="html" role="tab"><i class="dot dot--html"></i>HTML</button>
+        <button class="tab" data-lang="css" role="tab"><i class="dot dot--css"></i>CSS</button>
+        <button class="tab" data-lang="js" role="tab"><i class="dot dot--js"></i>JS</button>
+      </div>
+      <div class="editor-wrap">
+        <pre class="gutter" id="gutter" aria-hidden="true">1</pre>
+        <textarea id="html" class="code" data-lang="html" spellcheck="false" autocomplete="off"></textarea>
+        <textarea id="css" class="code" data-lang="css" spellcheck="false" autocomplete="off" hidden></textarea>
+        <textarea id="js" class="code" data-lang="js" spellcheck="false" autocomplete="off" hidden></textarea>
+        <textarea id="code" class="code code--single" data-lang="code" spellcheck="false" autocomplete="off" hidden></textarea>
+      </div>
+    </section>
+
+    <section class="preview-pane">
+      <div class="tabs tabs--right" id="viewTabs" role="tablist">
+        <button class="tab is-active" data-view="preview" role="tab">Preview</button>
+        <button class="tab" data-view="console" role="tab">Console <span class="badge" id="consoleCount">0</span></button>
+      </div>
+      <div class="preview-wrap">
+        <iframe id="preview" title="Output preview"></iframe>
+        <div class="console" id="console" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Forge Agent panel -->
+  <aside class="agent" id="agent" aria-hidden="true">
+    <div class="agent__head">
+      <span>🤖 Forge Agent</span>
+      <div>
+        <button class="icon-btn" id="agentSettings" title="Settings">⚙</button>
+        <button class="icon-btn" id="agentClose" title="Close">✕</button>
+      </div>
+    </div>
+    <div class="agent__msgs" id="agentMsgs">
+      <div class="amsg amsg--bot">Hi, I'm <b>Forge</b> — your coding copilot. Ask me to explain, debug, or run code. I can see the code in your editor.</div>
+    </div>
+    <div class="agent__quick">
+      <button data-q="Explain what this code does">Explain</button>
+      <button data-q="Find bugs and fix them">Debug</button>
+      <button data-q="Run this code and show the output">Run it</button>
+    </div>
+    <form class="agent__form" id="agentForm">
+      <textarea id="agentInput" placeholder="Ask Forge…" rows="2"></textarea>
+      <button type="submit" id="agentSend">➤</button>
+    </form>
+  </aside>
+
+  <!-- Agent settings modal -->
+  <div class="modal" id="settingsModal" hidden>
+    <div class="modal__card">
+      <h3>Forge Agent settings</h3>
+      <p class="modal__hint">Uses any OpenAI-compatible API. Your key is stored only in this browser.</p>
+      <label>API base URL<input id="setBase" value="https://api.openai.com/v1" /></label>
+      <label>API key<input id="setKey" type="password" placeholder="sk-…" /></label>
+      <label>Model<input id="setModel" value="gpt-4o-mini" /></label>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" id="setCancel">Cancel</button>
+        <button class="btn btn--run" id="setSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

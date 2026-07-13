@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaiChat · Realtime Social</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- login -->
+  <div class="login" id="login">
+    <div class="login__card">
+      <div class="login__brand"><span class="login__logo">✕</span> RaiChat</div>
+      <p class="login__tag">Realtime chat · feed · friends · wallet <em>by RaiVerse</em></p>
+      <input id="usernameInput" placeholder="Choose a username" maxlength="24" autocomplete="off" />
+      <button id="enterBtn">Enter RaiChat →</button>
+      <p class="login__hint">Open this page in another tab with a different name to chat with yourself in realtime.</p>
+    </div>
+  </div>
+
+  <!-- app -->
+  <div class="app" id="app" hidden>
+    <aside class="rail">
+      <div class="rail__logo">✕</div>
+      <nav class="rail__nav">
+        <button class="navbtn is-active" data-tab="chats" title="Chats">💬<span>Chats</span></button>
+        <button class="navbtn" data-tab="feed" title="Feed">📣<span>Feed</span></button>
+        <button class="navbtn" data-tab="friends" title="Friends">🤝<span>Friends</span></button>
+        <button class="navbtn" data-tab="wallet" title="Wallet">💳<span>Wallet</span></button>
+      </nav>
+      <div class="rail__me">
+        <span class="rail__avatar" id="meAvatar">?</span>
+        <span class="rail__name" id="meName">—</span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀︎</button>
+    </aside>
+
+    <main class="content">
+      <!-- CHATS -->
+      <section class="tabpanel is-active" data-panel="chats">
+        <header class="bar"><h2>Chats</h2></header>
+        <div class="chats">
+          <ul class="chatlist" id="chatList"></ul>
+          <div class="thread" id="thread">
+            <div class="thread__empty">Select a friend to start chatting.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEED -->
+      <section class="tabpanel" data-panel="feed">
+        <header class="bar"><h2>Feed</h2></header>
+        <div class="compose">
+          <textarea id="postInput" placeholder="Share something with your world…" maxlength="600"></textarea>
+          <button id="postBtn">Post</button>
+        </div>
+        <ul class="feed" id="feedList"></ul>
+      </section>
+
+      <!-- FRIENDS -->
+      <section class="tabpanel" data-panel="friends">
+        <header class="bar"><h2>Friends</h2></header>
+        <form class="addfriend" id="addFriendForm">
+          <input id="friendInput" placeholder="Add friend by username" autocomplete="off" />
+          <button type="submit">Add</button>
+        </form>
+        <ul class="people" id="friendsList"></ul>
+        <h3 class="subhead">Everyone on RaiChat</h3>
+        <ul class="people" id="allList"></ul>
+      </section>
+
+      <!-- WALLET -->
+      <section class="tabpanel" data-panel="wallet">
+        <header class="bar"><h2>Wallet</h2></header>
+        <div class="wallet">
+          <div class="balance">
+            <span class="balance__label">Balance</span>
+            <span class="balance__amount" id="balance">—</span>
+            <span class="balance__cur">CXC</span>
+          </div>
+          <form class="send" id="sendForm">
+            <input id="sendTo" placeholder="To (username)" autocomplete="off" />
+            <input id="sendAmount" type="number" step="0.01" min="0" placeholder="Amount" />
+            <input id="sendNote" placeholder="Note (optional)" maxlength="120" autocomplete="off" />
+            <button type="submit">Send</button>
+          </form>
+          <h3 class="subhead">Transactions</h3>
+          <ul class="txs" id="txList"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
