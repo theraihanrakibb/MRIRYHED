@@ -143,8 +143,9 @@
         convEls[c.name] = li;
       }
       li.classList.toggle("is-active", activeChat === c.name);
+      const label = c.ai ? "MRIRYHED Agent" : c.name;
       li.innerHTML = `<span class="avatar ${c.ai ? "avatar--ai" : ""}">${icon}${dot}</span>
-        <div class="conv__meta"><b>${esc(c.name)}</b><p>${esc(sub)}</p></div>`;
+        <div class="conv__meta"><b>${esc(label)}</b><p>${esc(sub)}</p></div>`;
       const ref = list.children[i];
       if (ref !== li) list.insertBefore(li, ref || null);
     });
