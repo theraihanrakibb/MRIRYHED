@@ -1,6 +1,6 @@
-# RaiForge · Online Code Editor + Forge Agent
+# MRIRYHED Code · Online Code Editor + Forge Agent
 
-A sleek, in-browser **IDE** with an AI coding copilot — part of the **RaiVerse** suite.
+A sleek, in-browser **IDE** with an AI coding copilot — part of the **MRIRYHED** suite.
 Tabbed HTML/CSS/JS playground with live preview, a synced line-number gutter, and a
 **Forge Agent** (LLM) that can explain, debug, and run code. Built with vanilla JS — no build step.
 

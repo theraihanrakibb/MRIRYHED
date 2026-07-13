@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * RaiChat — fully client-side (no server required)
+ * MRIRYHED — fully client-side (no server required)
  * State persists in localStorage; cross-tab realtime via BroadcastChannel.
  * Simulated wallet (no real money). Open index.html and you're in.
  * ------------------------------------------------------------------ */
@@ -41,9 +41,9 @@ function seed() {
   demo.forEach((u) => (users[u] = { wallet: 5000, friends: [] }));
   // Maya & Leo are friends
   users.Maya.friends = ["Leo"]; users.Leo.friends = ["Maya"];
-  messages.push({ from: "Maya", to: "Leo", text: "Hey Leo, welcome to RaiChat! 👋", ts: Date.now() - 60000 });
+  messages.push({ from: "Maya", to: "Leo", text: "Hey Leo, welcome to MRIRYHED! 👋", ts: Date.now() - 60000 });
   messages.push({ from: "Leo", to: "Maya", text: "This looks slick 🔥", ts: Date.now() - 30000 });
-  feed.push({ id: nextId("p"), author: "Maya", text: "Just deployed my first project with RaiChat. Loving the vibe! ✨", ts: Date.now() - 120000, likes: ["Leo"] });
+  feed.push({ id: nextId("p"), author: "Maya", text: "Just deployed my first project with MRIRYHED. Loving the vibe! ✨", ts: Date.now() - 120000, likes: ["Leo"] });
   feed.push({ id: nextId("p"), author: "Aria", text: "Anyone up for a quick call later? ☕", ts: Date.now() - 60000, likes: [] });
   txs.push({ id: nextId("t"), from: "Leo", to: "Maya", amount: 250, note: "lunch 🍜", ts: Date.now() - 90000 });
   users.Maya.wallet = 5250; users.Leo.wallet = 4750;

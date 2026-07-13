@@ -1,10 +1,10 @@
-# RaiScope · Cosmic Profile & Compatibility
+# MRIRYHED Zodiac · Cosmic Profile & Compatibility
 
 A single-page **cosmic profile** app that turns a birth date into a rich, readable
 personality reading — and lets you check compatibility with a partner. Built by
-**RaiVerse** as part of the Raihan portfolio.
+**MRIRYHED** as part of the Raihan portfolio.
 
-Instead of a single "match %", RaiScope reveals **three interlocking profiles**:
+Instead of a single "match %", MRIRYHED Zodiac reveals **three interlocking profiles**:
 
 - **Western zodiac** (Aries … Pisces) — element, ruling planet, core traits, and a
   short archetype description.
@@ -49,5 +49,5 @@ date to run the compatibility checker.
 
 ---
 
-Part of the **RaiVerse** suite: **RaiCast** (weather), **RaiForge** (code editor +
-Forge Agent), **RaiScope** (this app), **RaiChat** (realtime social), **RaiMind** (ML).
+Part of the **MRIRYHED** suite: **MRIRYHED Weather**, **MRIRYHED Code**,
+**MRIRYHED Zodiac** (this app), **MRIRYHED Chat** (realtime social), and **MRIRYHED Mind** (ML).

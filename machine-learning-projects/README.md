@@ -1,7 +1,7 @@
-# RaiMind · Machine Learning Projects
+# MRIRYHED Mind · Machine Learning Projects
 
 A collection of self-contained ML mini-projects, each in its own folder with a
-notebook, dataset(s), and a `README.md`. Built by **RaiVerse** as part of the
+notebook, dataset(s), and a `README.md`. Built by **MRIRYHED** as part of the
 Raihan portfolio. They cover the core supervised and unsupervised learning
 workflows — classification, regression, clustering, and recommender systems —
 plus an NLP sentiment task.
@@ -39,5 +39,5 @@ Then open any `<project>/<project>.ipynb`.
 
 ---
 
-Part of the **RaiVerse** suite: **RaiCast** (weather), **RaiForge** (code editor + Forge Agent),
-**RaiScope** (cosmic profile), **RaiChat** (realtime social), **RaiMind** (this collection).
+Part of the **MRIRYHED** suite: **MRIRYHED Weather**, **MRIRYHED Code**, **MRIRYHED Zodiac**,
+**MRIRYHED Chat**, and **MRIRYHED Mind** (this collection).

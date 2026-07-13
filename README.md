@@ -1,12 +1,16 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6d28d9,100:06b6d4&height=180&section=header&text=RaiVerse&fontSize=56&fontAlignY=38&fontColor=ffffff" alt="RaiVerse" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:7c3aed,100:06b6d4&height=200&section=header&text=MRIRYHED&fontSize=64&fontAlignY=36&fontColor=ffffff" alt="MRIRYHED" />
 </p>
 
-<h1 align="center">RaiVerse</h1>
+<h1 align="center">MRIRYHED</h1>
 
 <p align="center">
-  <b>A unified suite of modern web apps &amp; ML projects by <a href="https://github.com/theraihanrakibb">MD RAKIBUL ISLAM RAIHAN</a>.</b><br/>
-  Five polished products, one brand — built to look great and run anywhere.
+  <b>Three worlds. One name. Eternal.</b>
+</p>
+
+<p align="center">
+  A unified suite of modern web apps &amp; ML projects by <a href="https://github.com/theraihanrakibb">MD RAKIBUL ISLAM RAIHAN</a>.<br/>
+  Four polished products, one brand — built to look exceptional and run anywhere.
 </p>
 
 <p align="center">
@@ -20,24 +24,24 @@
 
 ## What's inside
 
-RaiVerse collects five independently-shippable projects under a single identity. Every web
-app is **self-contained vanilla HTML/CSS/JS — no build step, no framework, no install**. Open
-the file and it works.
+MRIRYHED collects four independently-shippable web products under a single identity, plus a
+machine-learning collection. Every web app is **self-contained vanilla HTML/CSS/JS — no build
+step, no framework, no install**. Open the file and it works.
 
 | App | Folder | What it does | Stack |
 |-----|--------|--------------|-------|
-| **RaiCast** | [`weather-dashboard/`](weather-dashboard) | iPhone-style multi-location weather with live geolocation, weather-reactive scenes, notes & light/dark theme. | Vanilla JS · OpenWeatherMap · Geolocation |
-| **RaiForge** | [`online-code-editor/`](online-code-editor) | In-browser IDE that **runs JS & Python** (Pyodide) and routes other languages to the **Forge Agent** (LLM). | Vanilla JS · Pyodide · LLM API |
-| **RaiScope** | [`zodiac-calculator/`](zodiac-calculator) | Cosmic profile: Western + Chinese zodiac + MBTI with a generated summary & compatibility check. | Vanilla JS |
-| **RaiChat** | [`chatx/`](chatx) | Realtime social — chat, feed, friends & a wallet. **100% client-side**, syncs live across tabs. | Vanilla JS · BroadcastChannel · localStorage |
-| **RaiMind** | [`machine-learning-projects/`](machine-learning-projects) | 8 ML mini-projects: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
+| **MRIRYHED Weather** | [`weather-dashboard/`](weather-dashboard) | iPhone-style multi-location weather with live geolocation, weather-reactive scenes, notes & light/dark theme. | Vanilla JS · OpenWeatherMap · Geolocation |
+| **MRIRYHED Code** | [`online-code-editor/`](online-code-editor) | In-browser IDE that **runs JS & Python** (Pyodide) and routes other languages to the **Forge Agent** (LLM). | Vanilla JS · Pyodide · LLM API |
+| **MRIRYHED Zodiac** | [`zodiac-calculator/`](zodiac-calculator) | Cosmic profile: Western + Chinese zodiac + MBTI with a generated summary & compatibility check. | Vanilla JS |
+| **MRIRYHED Chat** | [`chatx/`](chatx) | Realtime social — chat, feed, friends & a wallet. **100% client-side**, syncs live across tabs. | Vanilla JS · BroadcastChannel · localStorage |
+| **MRIRYHED Mind** | [`machine-learning-projects/`](machine-learning-projects) | 8 ML mini-projects: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
 
 ---
 
 ## Highlights
 
-- **One brand, five products.** Consistent naming (`Rai*`), shared light/dark theming, and a
-  common RaiVerse identity across every app.
+- **One brand, four products.** Consistent naming (`MRIRYHED *`), shared light/dark theming, and a
+  common identity across every app — each footer reads *"Powered by MRIRYHED"*.
 - **Runs anywhere.** No bundlers, no `npm install`, no servers for the web apps. Open
   `index.html` (or serve with `python -m http.server`) and you're in.
 - **Real features, not demos.** Live weather & geolocation, an in-browser code runner with an
@@ -50,8 +54,8 @@ the file and it works.
 
 ```bash
 # Clone the suite
-git clone https://github.com/theraihanrakibb/RaiVerse.git
-cd RaiVerse
+git clone https://github.com/theraihanrakibb/MRIRYHED.git
+cd MRIRYHED
 
 # Run any web app — e.g. the weather dashboard
 cd weather-dashboard
@@ -59,25 +63,20 @@ python -m http.server 8000
 # open http://localhost:8000
 ```
 
-> Tip: open **RaiChat** in two browser tabs with different usernames to see realtime
-> sync, and try **RaiForge**'s ▶ Run (JS/Python) or the 🤖 Forge Agent.
+> Tip: open **MRIRYHED Chat** in two browser tabs with different usernames to see realtime
+> sync, and try **MRIRYHED Code**'s ▶ Run (JS/Python) or the 🤖 Forge Agent.
 
 ---
 
-## Per-project setup
+## Per-product setup
 
-- **RaiCast** — ships with a free OpenWeatherMap key; works offline via a built-in mock dataset.
-- **RaiForge** — JS runs in a sandbox; Python via Pyodide CDN. The Forge Agent needs an
+- **MRIRYHED Weather** — ships with a free OpenWeatherMap key; works offline via a built-in mock dataset.
+- **MRIRYHED Code** — JS runs in a sandbox; Python via Pyodide CDN. The Forge Agent needs an
   OpenAI-compatible API key (entered in-app Settings, stored locally).
-- **RaiMind** — `pip install -r machine-learning-projects/requirements.txt && jupyter notebook`.
+- **MRIRYHED Mind** — `pip install -r machine-learning-projects/requirements.txt && jupyter notebook`.
 
 See each folder's `README.md` for details.
 
 ---
 
-## Author
-
-**MD RAKIBUL ISLAM RAIHAN** — building polished, useful web apps & ML projects.
-[GitHub](https://github.com/theraihanrakibb)
-
-<p align="center"><sub>RaiVerse · crafted with vanilla JS &amp; Python</sub></p>
+<p align="center"><sub>MRIRYHED — Three worlds. One name. Eternal. — Powered by MRIRYHED</sub></p>

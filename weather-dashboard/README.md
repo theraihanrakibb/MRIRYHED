@@ -1,8 +1,8 @@
-# RaiCast · Live Weather Dashboard
+# MRIRYHED Weather · Live Weather Dashboard
 
 A modern, single-page weather app that pulls **live conditions for any city** from the
 [OpenWeatherMap](https://openweathermap.org/) API and frames them in a glassy, weather-reactive
-interface. Built by **RaiVerse** as part of the Raihan portfolio. The whole page subtly shifts its
+interface. Built by **MRIRYHED** as part of the Raihan portfolio. The whole page subtly shifts its
 background to match the sky — sunny gold for *clear*, deep blue for *rain*, violet for *thunder*,
 and so on.
 
@@ -61,5 +61,5 @@ rather than crashing.
 
 ---
 
-Part of the **RaiVerse** suite: **RaiCast** (this app), **RaiForge** (code editor + Forge Agent),
-**RaiScope** (cosmic profile), **RaiChat** (realtime social), **RaiMind** (ML).
+Part of the **MRIRYHED** suite: **MRIRYHED Weather** (this app), **MRIRYHED Code**, **MRIRYHED Zodiac**,
+**MRIRYHED Chat** (realtime social), and **MRIRYHED Mind** (ML).

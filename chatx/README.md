@@ -1,7 +1,7 @@
-# RaiChat · Realtime Social
+# MRIRYHED Chat · Realtime Social
 
 A full realtime chat platform — **chat, feed, friends, and a wallet** — in the spirit of
-WeChat but with a cleaner, more modern interface. Built by **RaiVerse** as part of the Raihan
+WeChat but with a cleaner, more modern interface. Built by **MRIRYHED** as part of the Raihan
 portfolio. It's a **100% client-side web app**: no server, no build step, no API keys. Just
 open `index.html`.
 
@@ -20,7 +20,7 @@ chatx/
 - **Realtime chat** — 1:1 messaging. Open the app in two browser tabs with two usernames
   and messages sync live between them (via `BroadcastChannel`).
 - **Feed** — post status updates and like friends' posts; new posts & likes stream live.
-- **Friends** — add anyone on RaiChat by username, see online/offline presence, jump into a chat.
+- **Friends** — add anyone on MRIRYHED Chat by username, see online/offline presence, jump into a chat.
 - **Wallet (simulated)** — every user starts with **5,000 CXC**. Send money to friends;
   balances & transaction history update live. *No real currency — purely a demo wallet.*
 - **Presence** — live online/offline indicators.
@@ -52,5 +52,5 @@ python -m http.server 8000
 
 ---
 
-Part of the **RaiVerse** suite: **RaiCast** (weather), **RaiForge** (code editor + Forge Agent),
-**RaiScope** (cosmic profile), **RaiChat** (this app), **RaiMind** (ML).
+Part of the **MRIRYHED** suite: **MRIRYHED Weather**, **MRIRYHED Code**, **MRIRYHED Zodiac**,
+**MRIRYHED Chat** (this app), and **MRIRYHED Mind** (ML).

@@ -112,12 +112,13 @@
   /* ---------------- compatibility ---------------- */
   const ELEM_COMPAT = { Fire: { Fire: 8, Air: 9, Earth: 5, Water: 5 }, Air: { Fire: 9, Air: 8, Earth: 6, Water: 6 }, Earth: { Fire: 5, Air: 6, Earth: 9, Water: 7 }, Water: { Fire: 5, Air: 6, Earth: 7, Water: 9 } };
   function compatWith(pYear, pMonth, pDay) {
-    const aW = WEST[getWestern(+monthI.value, +dayI.value)];
-    const bW = WEST[getWestern(pMonth, pDay)];
+    const aSign = getWestern(+monthI.value, +dayI.value);
+    const bSign = getWestern(pMonth, pDay);
+    const aW = WEST[aSign], bW = WEST[bSign];
     const aE = getElement(+yearI.value), bE = getElement(pYear);
     const aC = getChineseAnimal(+yearI.value), bC = getChineseAnimal(pYear);
-    let s = 50 + (ELEM_COMPAT[WEST[aW].element][WEST[bW].element] - 6) * 4;
-    if (aE === bE) s += 8; if (aC === bC) s += 6; if (aW === bW) s += 10;
+    let s = 50 + (ELEM_COMPAT[aW.element][bW.element] - 6) * 4;
+    if (aE === bE) s += 8; if (aC === bC) s += 6; if (aSign === bSign) s += 10;
     s += Math.floor(Math.random() * 7) - 3;
     return Math.max(28, Math.min(99, Math.round(s)));
   }

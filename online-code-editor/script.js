@@ -1,12 +1,12 @@
 /* ------------------------------------------------------------------ *
- * RaiForge — online code editor + Forge Agent (LLM)
+ * MRIRYHED Code — online code editor + Forge Agent (LLM)
  * Web (HTML/CSS/JS) → live preview. JS → sandbox. Python → Pyodide.
  * Other languages → routed to the Forge Agent. Vanilla JS, no build.
  * ------------------------------------------------------------------ */
 
 const WEB_STARTER = {
   html: `<div class="card">
-  <h1>Hello, RaiForge ⚡</h1>
+  <h1>Hello, MRIRYHED ⚡</h1>
   <p>Edit the code — it runs live.</p>
   <button id="go">Tap me</button>
 </div>`,
@@ -18,28 +18,28 @@ button{background:#ff7a59;color:#1a0f0a;border:0;padding:10px 18px;border-radius
   js: `document.getElementById('go').addEventListener('click', () => {
   console.log('Button clicked at', new Date().toLocaleTimeString());
 });
-console.log('RaiForge is ready 🚀');`,
+console.log('MRIRYHED is ready 🚀');`,
 };
 
 const LANGS = [
   { id: "web", name: "Web (HTML/CSS/JS)", mode: "web" },
   { id: "js", name: "JavaScript", mode: "code", engine: "js", piston: "javascript",
-    starter: `// JavaScript\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\nconsole.log(greet("RaiForge"));\n` },
+    starter: `// JavaScript\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\nconsole.log(greet("MRIRYHED"));\n` },
   { id: "py", name: "Python", mode: "code", engine: "py",
-    starter: `# Python\nimport math\n\ndef greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("RaiForge"))\nprint("pi =", round(math.pi, 4))\n` },
-  { id: "ts", name: "TypeScript", mode: "code", engine: "agent", piston: "typescript", starter: `// TypeScript (ask Forge Agent to run)\nconst msg: string = "Hello, RaiForge";\nconsole.log(msg);\n` },
-  { id: "java", name: "Java", mode: "code", engine: "agent", piston: "java", starter: `// Java (ask Forge Agent to run)\npublic class Main {\n  public static void main(String[] a) {\n    System.out.println("Hello, RaiForge");\n  }\n}\n` },
-  { id: "cpp", name: "C++", mode: "code", engine: "agent", piston: "cpp", starter: `// C++ (ask Forge Agent to run)\n#include <iostream>\nint main() {\n  std::cout << "Hello, RaiForge\\n";\n  return 0;\n}\n` },
-  { id: "c", name: "C", mode: "code", engine: "agent", piston: "c", starter: `// C (ask Forge Agent to run)\n#include <stdio.h>\nint main() {\n  printf("Hello, RaiForge\\n");\n  return 0;\n}\n` },
-  { id: "cs", name: "C#", mode: "code", engine: "agent", piston: "csharp", starter: `// C# (ask Forge Agent to run)\nusing System;\nclass Program { static void Main() => Console.WriteLine("Hello, RaiForge"); }\n` },
-  { id: "go", name: "Go", mode: "code", engine: "agent", piston: "go", starter: `// Go (ask Forge Agent to run)\npackage main\nimport "fmt"\nfunc main() { fmt.Println("Hello, RaiForge") }\n` },
-  { id: "rs", name: "Rust", mode: "code", engine: "agent", piston: "rust", starter: `// Rust (ask Forge Agent to run)\nfn main() { println!("Hello, RaiForge"); }\n` },
-  { id: "rb", name: "Ruby", mode: "code", engine: "agent", piston: "ruby", starter: `# Ruby (ask Forge Agent to run)\nputs "Hello, RaiForge"\n` },
-  { id: "php", name: "PHP", mode: "code", engine: "agent", piston: "php", starter: `<?php\n// PHP (ask Forge Agent to run)\necho "Hello, RaiForge\\n";\n` },
+    starter: `# Python\nimport math\n\ndef greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("MRIRYHED"))\nprint("pi =", round(math.pi, 4))\n` },
+  { id: "ts", name: "TypeScript", mode: "code", engine: "agent", piston: "typescript", starter: `// TypeScript (ask Forge Agent to run)\nconst msg: string = "Hello, MRIRYHED";\nconsole.log(msg);\n` },
+  { id: "java", name: "Java", mode: "code", engine: "agent", piston: "java", starter: `// Java (ask Forge Agent to run)\npublic class Main {\n  public static void main(String[] a) {\n    System.out.println("Hello, MRIRYHED");\n  }\n}\n` },
+  { id: "cpp", name: "C++", mode: "code", engine: "agent", piston: "cpp", starter: `// C++ (ask Forge Agent to run)\n#include <iostream>\nint main() {\n  std::cout << "Hello, MRIRYHED\\n";\n  return 0;\n}\n` },
+  { id: "c", name: "C", mode: "code", engine: "agent", piston: "c", starter: `// C (ask Forge Agent to run)\n#include <stdio.h>\nint main() {\n  printf("Hello, MRIRYHED\\n");\n  return 0;\n}\n` },
+  { id: "cs", name: "C#", mode: "code", engine: "agent", piston: "csharp", starter: `// C# (ask Forge Agent to run)\nusing System;\nclass Program { static void Main() => Console.WriteLine("Hello, MRIRYHED"); }\n` },
+  { id: "go", name: "Go", mode: "code", engine: "agent", piston: "go", starter: `// Go (ask Forge Agent to run)\npackage main\nimport "fmt"\nfunc main() { fmt.Println("Hello, MRIRYHED") }\n` },
+  { id: "rs", name: "Rust", mode: "code", engine: "agent", piston: "rust", starter: `// Rust (ask Forge Agent to run)\nfn main() { println!("Hello, MRIRYHED"); }\n` },
+  { id: "rb", name: "Ruby", mode: "code", engine: "agent", piston: "ruby", starter: `# Ruby (ask Forge Agent to run)\nputs "Hello, MRIRYHED"\n` },
+  { id: "php", name: "PHP", mode: "code", engine: "agent", piston: "php", starter: `<?php\n// PHP (ask Forge Agent to run)\necho "Hello, MRIRYHED\\n";\n` },
   { id: "sql", name: "SQL", mode: "code", engine: "agent", starter: `-- SQL\nSELECT name, age FROM users\nWHERE age > 18\nORDER BY name;\n` },
-  { id: "sh", name: "Bash", mode: "code", engine: "agent", starter: `#!/usr/bin/env bash\necho "Hello, RaiForge"\n` },
-  { id: "json", name: "JSON", mode: "code", engine: "none", starter: `{\n  "name": "RaiForge",\n  "live": true\n}\n` },
-  { id: "md", name: "Markdown", mode: "code", engine: "none", starter: `# RaiForge\n\nWrite **Markdown** here.\n` },
+  { id: "sh", name: "Bash", mode: "code", engine: "agent", starter: `#!/usr/bin/env bash\necho "Hello, MRIRYHED"\n` },
+  { id: "json", name: "JSON", mode: "code", engine: "none", starter: `{\n  "name": "MRIRYHED",\n  "live": true\n}\n` },
+  { id: "md", name: "Markdown", mode: "code", engine: "none", starter: `# MRIRYHED\n\nWrite **Markdown** here.\n` },
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -241,7 +241,7 @@ async function sendToAgent(prompt) {
   const model = localStorage.getItem("raiforge-ai-model") || "gpt-4o-mini";
   const code = activeEditor().value;
   const langName = LANGS.find((l) => l.id === currentLangId).name;
-  const sys = "You are Forge, an expert coding assistant inside the RaiForge web IDE by RaiVerse. Be concise. Use markdown code blocks. The user's current editor language is " + langName + ".";
+  const sys = "You are Forge, an expert coding assistant inside the MRIRYHED Code web IDE. Be concise. Use markdown code blocks. The user's current editor language is " + langName + ".";
   const userContent = (prompt || agentInput.value).trim();
   if (!userContent) return;
   addMsg("user", userContent);

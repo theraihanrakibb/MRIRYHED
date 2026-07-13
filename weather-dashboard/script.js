@@ -108,7 +108,7 @@ function renderDetail(loc) {
   $("sunrise").textContent = fmtTime(d.sys.sunrise, d.tz);
   $("sunset").textContent = fmtTime(d.sys.sunset, d.tz);
   applyScene(d.weather[0].main);
-  document.title = `${d.name} · ${Math.round(d.main.temp)}° · RaiCast`;
+  document.title = `${d.name} · ${Math.round(d.main.temp)}° · MRIRYHED`;
 }
 
 function renderList() {

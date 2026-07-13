@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RaiForge · Code Editor</title>
+  <title>MRIRYHED Code · Online Editor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,20 +17,26 @@
   <header class="topbar">
     <div class="brand">
       <span class="brand__mark">⚡</span>
-      <span class="brand__name">RaiForge</span>
-      <span class="brand__sub">by RaiVerse</span>
+      <span class="brand__name">MRIRYHED</span>
+      <span class="brand__sub">Code</span>
     </div>
     <div class="tools">
-      <select id="langSelect" class="lang" aria-label="Language"></select>
-      <label class="switch" id="autoWrap" title="Re-run automatically as you type">
-        <input type="checkbox" id="autoRun" checked />
-        <span class="switch__track"><span class="switch__thumb"></span></span>
-        <span class="switch__label">Auto</span>
-      </label>
-      <button class="btn btn--ghost" id="copyBtn" title="Copy code">Copy</button>
-      <button class="btn btn--ghost" id="dlBtn" title="Download code">Save</button>
-      <button class="btn btn--agent" id="agentBtn" title="Forge Agent (AI)">🤖 Agent</button>
-      <button class="btn btn--run" id="runBtn">▶ Run</button>
+      <div class="tools__group">
+        <select id="langSelect" class="lang" aria-label="Language"></select>
+        <label class="switch" id="autoWrap" title="Re-run automatically as you type">
+          <input type="checkbox" id="autoRun" checked />
+          <span class="switch__track"><span class="switch__thumb"></span></span>
+          <span class="switch__label">Auto</span>
+        </label>
+      </div>
+      <div class="tools__group">
+        <button class="btn btn--ghost" id="copyBtn" title="Copy code">Copy</button>
+        <button class="btn btn--ghost" id="dlBtn" title="Download code">Save</button>
+        <button class="btn btn--agent" id="agentBtn" title="Forge Agent (AI)">🤖 Agent</button>
+      </div>
+      <div class="tools__group">
+        <button class="btn btn--run" id="runBtn">▶ Run</button>
+      </div>
     </div>
   </header>
 
@@ -62,7 +68,14 @@
     </section>
   </main>
 
+  <footer class="brand-foot">
+    <span class="bf-brand">MRIRYHED</span>
+    <span class="bf-tag">Three worlds. One name. Eternal.</span>
+    <span class="bf-pow">Powered by MRIRYHED</span>
+  </footer>
+
   <!-- Forge Agent panel -->
+  <div class="agent-scrim" id="agentScrim"></div>
   <aside class="agent" id="agent" aria-hidden="true">
     <div class="agent__head">
       <span>🤖 Forge Agent</span>
@@ -99,6 +112,8 @@
       </div>
     </div>
   </div>
+
+  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>
