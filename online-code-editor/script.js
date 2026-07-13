@@ -62,7 +62,7 @@ let pyodide = null, pyLoading = false;
 LANGS.forEach((l) => { const o = document.createElement("option"); o.value = l.id; o.textContent = l.name; langSelect.appendChild(o); });
 
 /* ---------- persistence ---------- */
-const storeKey = (id) => "raiforge-" + id;
+const storeKey = (id) => "mricode-" + id;
 function loadSaved() {
   let any = false;
   for (const k of ["html", "css", "js"]) {
@@ -70,7 +70,7 @@ function loadSaved() {
     $("" + k).value = v !== null ? v : WEB_STARTER[k];
     if (v !== null) any = true;
   }
-  const savedLang = localStorage.getItem("raiforge-lang") || "web";
+  const savedLang = localStorage.getItem("mricode-lang") || "web";
   langSelect.value = savedLang;
   applyLang(savedLang, false);
 }
@@ -166,7 +166,7 @@ function applyLang(id, runAfter = true) {
   currentLangId = id;
   const lang = LANGS.find((l) => l.id === id);
   mode = lang.mode;
-  localStorage.setItem("raiforge-lang", id);
+  localStorage.setItem("mricode-lang", id);
   if (mode === "web") {
     editorTabs.style.display = ""; $("code").hidden = true;
     for (const k of ["html", "css", "js"]) $("" + k).hidden = k !== activeLang;
@@ -200,7 +200,7 @@ $("runBtn").addEventListener("click", () => { saveAll(); clearConsole(); run(); 
 $("copyBtn").addEventListener("click", async () => { try { await navigator.clipboard.writeText(activeEditor().value); flash($("copyBtn"), "Copied!"); } catch { flash($("copyBtn"), "Copy failed"); } });
 $("dlBtn").addEventListener("click", () => {
   const ext = { js: "js", py: "py", ts: "ts", java: "java", cpp: "cpp", c: "c", cs: "cs", go: "go", rs: "rs", rb: "rb", php: "php", sql: "sql", sh: "sh", json: "json", md: "md", web: "html" }[currentLangId] || "txt";
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([activeEditor().value], { type: "text/plain" })); a.download = "raiforge." + ext; a.click(); URL.revokeObjectURL(a.href); flash($("dlBtn"), "Saved");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([activeEditor().value], { type: "text/plain" })); a.download = "mricode." + ext; a.click(); URL.revokeObjectURL(a.href); flash($("dlBtn"), "Saved");
 });
 function flash(btn, msg) { const old = btn.textContent; btn.textContent = msg; setTimeout(() => (btn.textContent = old), 1200); }
 let timer = null; function debounceRun() { clearTimeout(timer); timer = setTimeout(() => { clearConsole(); run(); }, 500); }
@@ -214,16 +214,16 @@ $("agentBtn").addEventListener("click", openAgent);
 $("agentClose").addEventListener("click", closeAgent);
 
 function agentSettingsLoad() {
-  $("setBase").value = localStorage.getItem("raiforge-ai-base") || "https://api.openai.com/v1";
-  $("setKey").value = localStorage.getItem("raiforge-ai-key") || "";
-  $("setModel").value = localStorage.getItem("raiforge-ai-model") || "gpt-4o-mini";
+  $("setBase").value = localStorage.getItem("mricode-ai-base") || "https://api.openai.com/v1";
+  $("setKey").value = localStorage.getItem("mricode-ai-key") || "";
+  $("setModel").value = localStorage.getItem("mricode-ai-model") || "gpt-4o-mini";
 }
 $("agentSettings").addEventListener("click", () => { agentSettingsLoad(); $("settingsModal").hidden = false; });
 $("setCancel").addEventListener("click", () => ($("settingsModal").hidden = true));
 $("setSave").addEventListener("click", () => {
-  localStorage.setItem("raiforge-ai-base", $("setBase").value.trim());
-  localStorage.setItem("raiforge-ai-key", $("setKey").value.trim());
-  localStorage.setItem("raiforge-ai-model", $("setModel").value.trim());
+  localStorage.setItem("mricode-ai-base", $("setBase").value.trim());
+  localStorage.setItem("mricode-ai-key", $("setKey").value.trim());
+  localStorage.setItem("mricode-ai-model", $("setModel").value.trim());
   $("settingsModal").hidden = true; toast("Forge Agent settings saved");
 });
 
@@ -236,9 +236,9 @@ function addMsg(role, text) {
 function toast(m) { const t = $("toast"); if (!t) return; t.textContent = m; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 2600); }
 
 async function sendToAgent(prompt) {
-  const base = localStorage.getItem("raiforge-ai-base") || "https://api.openai.com/v1";
-  const key = localStorage.getItem("raiforge-ai-key") || "";
-  const model = localStorage.getItem("raiforge-ai-model") || "gpt-4o-mini";
+  const base = localStorage.getItem("mricode-ai-base") || "https://api.openai.com/v1";
+  const key = localStorage.getItem("mricode-ai-key") || "";
+  const model = localStorage.getItem("mricode-ai-model") || "gpt-4o-mini";
   const code = activeEditor().value;
   const langName = LANGS.find((l) => l.id === currentLangId).name;
   const sys = "You are Forge, an expert coding assistant inside the MRIRYHED Code web IDE. Be concise. Use markdown code blocks. The user's current editor language is " + langName + ".";
@@ -269,11 +269,11 @@ document.querySelectorAll(".agent__quick button").forEach((b) => b.addEventListe
 /* ---------- theme ---------- */
 (function () {
   const btn = $("themeToggle"), root = document.documentElement;
-  if (localStorage.getItem("raiforge-theme") === "light") root.setAttribute("data-theme", "light");
+  if (localStorage.getItem("mricode-theme") === "light") root.setAttribute("data-theme", "light");
   btn.addEventListener("click", () => {
     const isLight = root.getAttribute("data-theme") === "light";
-    if (isLight) { root.removeAttribute("data-theme"); localStorage.setItem("raiforge-theme", "dark"); }
-    else { root.setAttribute("data-theme", "light"); localStorage.setItem("raiforge-theme", "light"); }
+    if (isLight) { root.removeAttribute("data-theme"); localStorage.setItem("mricode-theme", "dark"); }
+    else { root.setAttribute("data-theme", "light"); localStorage.setItem("mricode-theme", "light"); }
   });
 })();
 

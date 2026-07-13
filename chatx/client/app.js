@@ -4,11 +4,11 @@
  * Simulated wallet (no real money). Open index.html and you're in.
  * ------------------------------------------------------------------ */
 const $ = (id) => document.getElementById(id);
-const bc = ("BroadcastChannel" in window) ? new BroadcastChannel("raichat") : null;
+const bc = ("BroadcastChannel" in window) ? new BroadcastChannel("mrichat") : null;
 
 const KEYS = {
-  users: "raichat-users", msg: "raichat-msg", feed: "raichat-feed",
-  tx: "raichat-tx", session: "raichat-session",
+  users: "mrichat-users", msg: "mrichat-msg", feed: "mrichat-feed",
+  tx: "mrichat-tx", session: "mrichat-session",
 };
 let me = null;
 let users = {};                 // username -> { wallet, friends:[] }
@@ -260,11 +260,11 @@ $("sendForm").addEventListener("submit", (e) => {
 /* ---------- theme ---------- */
 (function () {
   const btn = $("themeToggle"); const root = document.documentElement;
-  if (localStorage.getItem("raichat-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
+  if (localStorage.getItem("mrichat-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
   btn.addEventListener("click", () => {
     const isLight = root.getAttribute("data-theme") === "light";
-    if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("raichat-theme", "dark"); }
-    else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("raichat-theme", "light"); }
+    if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("mrichat-theme", "dark"); }
+    else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("mrichat-theme", "light"); }
   });
 })();
 

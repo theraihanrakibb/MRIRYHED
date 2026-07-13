@@ -92,8 +92,8 @@ body {
 
 /* ===================== theme switch ===================== */
 .theme-switch {
-  position: fixed; top: 18px; right: 18px; z-index: 80;
-  width: 60px; height: 32px; border-radius: 999px; cursor: pointer;
+  position: relative; z-index: 1;
+  width: 60px; height: 32px; border-radius: 999px; cursor: pointer; flex: none;
   border: 1px solid var(--pane-brd);
   background: var(--pane-2);
   box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -266,9 +266,9 @@ html:not([data-theme="light"]) .ts-sun { opacity: 0.4; }
 /* ===================== agent panel ===================== */
 .agent-scrim {
   position: fixed; inset: 0; z-index: 55; background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(2px); opacity: 0; transition: opacity 0.3s var(--ease);
+  backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
 }
-body:has(.agent.is-open) .agent-scrim { opacity: 1; }
+body:has(.agent.is-open) .agent-scrim { opacity: 1; pointer-events: auto; }
 
 .agent {
   position: fixed; top: 0; right: 0; z-index: 60; width: 400px; max-width: 94vw; height: 100vh;

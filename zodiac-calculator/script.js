@@ -140,11 +140,11 @@
   /* ---------------- theme ---------------- */
   (function () {
     const root = document.documentElement, btn = $("themeToggle");
-    if (localStorage.getItem("raiscape-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
+    if (localStorage.getItem("mrizodiac-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
     btn.addEventListener("click", () => {
       const isLight = root.getAttribute("data-theme") === "light";
-      if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("raiscape-theme", "dark"); }
-      else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("raiscape-theme", "light"); }
+      if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("mrizodiac-theme", "dark"); }
+      else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("mrizodiac-theme", "light"); }
     });
   })();
 })();

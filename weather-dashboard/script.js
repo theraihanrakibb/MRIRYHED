@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * RaiCast — multi-location weather (iPhone-style)
+ * MRIRYHED Weather — multi-location weather (iPhone-style)
  * Live OpenWeatherMap when the key works; otherwise a built-in mock
  * dataset so the app always feels alive. Locations persist locally.
  * ------------------------------------------------------------------ */
@@ -162,13 +162,13 @@ function addLocation(data) {
 }
 
 function save() {
-  localStorage.setItem("raicast-locations", JSON.stringify(locations.map((l) => ({ id: l.id, data: l.data }))));
-  localStorage.setItem("raicast-selected", selectedId || "");
+  localStorage.setItem("mriweather-locations", JSON.stringify(locations.map((l) => ({ id: l.id, data: l.data }))));
+  localStorage.setItem("mriweather-selected", selectedId || "");
 }
 function load() {
   try {
-    const raw = localStorage.getItem("raicast-locations");
-    if (raw) { locations = JSON.parse(raw); selectedId = localStorage.getItem("raicast-selected") || (locations[0] && locations[0].id); }
+    const raw = localStorage.getItem("mriweather-locations");
+    if (raw) { locations = JSON.parse(raw); selectedId = localStorage.getItem("mriweather-selected") || (locations[0] && locations[0].id); }
   } catch (e) { locations = []; }
   if (!locations.length) {
     // seed with Xi'an (default) + a couple to demonstrate the list
@@ -246,18 +246,18 @@ function openNotes() { $("notesDrawer").classList.add("is-open"); $("scrim").cla
 function closeNotes() { $("notesDrawer").classList.remove("is-open"); if (!$("drawer").classList.contains("is-open")) $("scrim").classList.remove("is-open"); }
 $("notesBtn").addEventListener("click", openNotes);
 $("notesClose").addEventListener("click", closeNotes);
-$("notesArea").value = localStorage.getItem("raicast-notes") || "";
-$("notesArea").addEventListener("input", (e) => localStorage.setItem("raicast-notes", e.target.value));
+$("notesArea").value = localStorage.getItem("mriweather-notes") || "";
+$("notesArea").addEventListener("input", (e) => localStorage.setItem("mriweather-notes", e.target.value));
 
 /* theme */
 (function () {
   const btn = $("themeToggle");
   const root = document.documentElement;
-  if (localStorage.getItem("raicast-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
+  if (localStorage.getItem("mriweather-theme") === "light") { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; }
   btn.addEventListener("click", () => {
     const isLight = root.getAttribute("data-theme") === "light";
-    if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("raicast-theme", "dark"); }
-    else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("raicast-theme", "light"); }
+    if (isLight) { root.removeAttribute("data-theme"); btn.textContent = "☀︎"; localStorage.setItem("mriweather-theme", "dark"); }
+    else { root.setAttribute("data-theme", "light"); btn.textContent = "☾"; localStorage.setItem("mriweather-theme", "light"); }
   });
 })();
 
