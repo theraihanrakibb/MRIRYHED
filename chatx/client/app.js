@@ -143,7 +143,7 @@
         convEls[c.name] = li;
       }
       li.classList.toggle("is-active", activeChat === c.name);
-      const label = c.ai ? "MRIRYHED Agent" : c.name;
+      const label = c.ai ? "MRIRYHED" : c.name;
       li.innerHTML = `<span class="avatar ${c.ai ? "avatar--ai" : ""}">${icon}${dot}</span>
         <div class="conv__meta"><b>${esc(label)}</b><p>${esc(sub)}</p></div>`;
       const ref = list.children[i];
@@ -161,7 +161,7 @@
     thread.innerHTML = `
       <header class="thread__head">
         <span class="avatar ${ai ? "avatar--ai" : ""}">${ai ? "🤖" : av(name)}${ai ? "" : (isOnline(name) ? '<span class="dot on"></span>' : "")}</span>
-        <div class="thread__who"><b>${ai ? "MRIRYHED Agent" : esc(name)}</b><span>${ai ? "AI assistant · powered by MRIRYHED" : (isOnline(name) ? "online" : "offline")}</span></div>
+        <div class="thread__who"><b>${ai ? "MRIRYHED" : esc(name)}</b><span>${ai ? "AI assistant · powered by MRIRYHED" : (isOnline(name) ? "online" : "offline")}</span></div>
       </header>
       <div class="msgs" id="msgBox"></div>
       <form class="composer" id="composer">
