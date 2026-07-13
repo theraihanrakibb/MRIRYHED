@@ -1,10 +1,12 @@
 /* ------------------------------------------------------------------ *
- * MRIRYHED — fully client-side (no server required)
+ * MRIRYHED Chat — client-side first, real-time when a server is present.
  * State persists in localStorage; cross-tab realtime via BroadcastChannel.
- * Simulated wallet (no real money). Open index.html and you're in.
+ * If served by chatx/server (Node + WebSocket) it also relays live across
+ * devices. Simulated wallet (no real money). Open index.html and you're in.
  * ------------------------------------------------------------------ */
 const $ = (id) => document.getElementById(id);
 const bc = ("BroadcastChannel" in window) ? new BroadcastChannel("mrichat") : null;
+let ws = null;
 
 const KEYS = {
   users: "mrichat-users", msg: "mrichat-msg", feed: "mrichat-feed",
@@ -71,15 +73,29 @@ function enter() {
   $("meName").textContent = me;
   $("meAvatar").textContent = av(me);
   $("balance").textContent = users[me].wallet.toLocaleString();
-  renderAll();
+  renderChatList(); renderFeed(); renderFriends(); renderAll(); renderTxs();
   broadcast({ type: "presence", user: me, online: true });
 }
 $("enterBtn").addEventListener("click", enter);
 $("usernameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") enter(); });
 
 /* ---------- broadcast ---------- */
-function broadcast(obj) { if (bc) bc.postMessage(obj); }
+function broadcast(obj) {
+  if (bc) bc.postMessage(obj);
+  if (ws && ws.readyState === 1) ws.send(JSON.stringify(obj));
+}
 if (bc) bc.onmessage = (e) => handleRemote(e.data);
+
+/* ---------- optional real-time server (Node + WebSocket) ---------- */
+function connectWS() {
+  if (!("WebSocket" in window)) return;
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  try { ws = new WebSocket(proto + "://" + location.host); } catch { return; }
+  ws.onmessage = (e) => { try { handleRemote(JSON.parse(e.data)); } catch { /* ignore */ } };
+  ws.onopen = () => { if (me) ws.send(JSON.stringify({ type: "hello", user: me })); };
+  ws.onclose = () => { ws = null; setTimeout(connectWS, 3000); };
+  ws.onerror = () => { try { ws.close(); } catch {} };
+}
 function handleRemote(msg) {
   switch (msg.type) {
     case "presence":
@@ -103,6 +119,10 @@ function handleRemote(msg) {
       break;
     case "tx-new":
       txs.unshift(msg.tx); save(); if (msg.tx.from === me || msg.tx.to === me) renderTxs(); break;
+    case "roster":
+      (msg.users || []).forEach((u) => { if (u !== me) online.add(u); });
+      renderChatList(); renderFriends(); renderAll();
+      break;
   }
 }
 window.addEventListener("beforeunload", () => { if (me) broadcast({ type: "presence", user: me, online: false }); });
@@ -271,6 +291,7 @@ $("sendForm").addEventListener("submit", (e) => {
 /* ---------- boot ---------- */
 load();
 seed();
+connectWS();
 const saved = localStorage.getItem(KEYS.session);
 if (saved && users[saved]) {
   me = saved;

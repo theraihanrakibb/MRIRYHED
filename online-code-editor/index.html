@@ -28,7 +28,7 @@
       <div class="tools__group">
         <button class="btn btn--ghost" id="copyBtn" title="Copy code">Copy</button>
         <button class="btn btn--ghost" id="dlBtn" title="Download code">Save</button>
-        <button class="btn btn--agent" id="agentBtn" title="Forge Agent (AI)">🤖 Agent</button>
+        <button class="btn btn--agent" id="agentBtn" title="MRIRYHED Agent (AI)">🤖 Agent</button>
       </div>
       <div class="tools__group">
         <button class="theme-switch" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
@@ -73,18 +73,18 @@
     <span class="bf-pow">Powered by MRIRYHED</span>
   </footer>
 
-  <!-- Forge Agent panel -->
+  <!-- MRIRYHED Agent panel -->
   <div class="agent-scrim" id="agentScrim"></div>
   <aside class="agent" id="agent" aria-hidden="true">
     <div class="agent__head">
-      <span>🤖 Forge Agent</span>
+      <span>🤖 MRIRYHED Agent</span>
       <div>
         <button class="icon-btn" id="agentSettings" title="Settings">⚙</button>
         <button class="icon-btn" id="agentClose" title="Close">✕</button>
       </div>
     </div>
     <div class="agent__msgs" id="agentMsgs">
-      <div class="amsg amsg--bot">Hi, I'm <b>Forge</b> — your coding copilot. Ask me to explain, debug, or run code. I can see the code in your editor.</div>
+      <div class="amsg amsg--bot">Hi, I'm <b>MRIRYHED Agent</b> — your coding copilot. Ask me to explain, debug, or run code. I can see the code in your editor.</div>
     </div>
     <div class="agent__quick">
       <button data-q="Explain what this code does">Explain</button>
@@ -92,7 +92,7 @@
       <button data-q="Run this code and show the output">Run it</button>
     </div>
     <form class="agent__form" id="agentForm">
-      <textarea id="agentInput" placeholder="Ask Forge…" rows="2"></textarea>
+      <textarea id="agentInput" placeholder="Ask MRIRYHED Agent…" rows="2"></textarea>
       <button type="submit" id="agentSend">➤</button>
     </form>
   </aside>
@@ -100,11 +100,51 @@
   <!-- Agent settings modal -->
   <div class="modal" id="settingsModal" hidden>
     <div class="modal__card">
-      <h3>Forge Agent settings</h3>
-      <p class="modal__hint">Uses any OpenAI-compatible API. Your key is stored only in this browser.</p>
-      <label>API base URL<input id="setBase" value="https://api.openai.com/v1" /></label>
-      <label>API key<input id="setKey" type="password" placeholder="sk-…" /></label>
-      <label>Model<input id="setModel" value="gpt-4o-mini" /></label>
+      <h3>MRIRYHED Agent settings</h3>
+      <p class="modal__hint">Works with <b>any</b> OpenAI-compatible provider — OpenAI, Anthropic, Google, Mistral, NVIDIA, DeepSeek, Alibaba, Z.ai, BAAI and more. Pick a provider, add your key, validate to load models, then choose by token cost. Your key stays only in this browser.</p>
+
+      <div class="field">
+        <label for="setProvider">Provider</label>
+        <select id="setProvider">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="google">Google (Gemini)</option>
+          <option value="mistral">Mistral AI</option>
+          <option value="groq">Groq</option>
+          <option value="together">Together AI</option>
+          <option value="xai">xAI (Grok)</option>
+          <option value="cohere">Cohere</option>
+          <option value="perplexity">Perplexity</option>
+          <option value="nvidia">NVIDIA (NIM)</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="alibaba">Alibaba (Qwen)</option>
+          <option value="zai">Z.ai (GLM)</option>
+          <option value="baai">BAAI</option>
+          <option value="openrouter">OpenRouter (aggregate)</option>
+          <option value="ollama">Ollama (local)</option>
+          <option value="custom">Custom / other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="setBase">API base URL</label>
+        <input id="setBase" value="https://api.openai.com/v1" spellcheck="false" />
+        <span class="field__note" id="providerNote"></span>
+      </div>
+
+      <div class="field">
+        <label for="setKey">API key</label>
+        <input id="setKey" type="password" placeholder="sk-… (stored only in this browser)" autocomplete="off" />
+      </div>
+
+      <button class="btn btn--ghost btn--block" id="setValidate" type="button">Validate key &amp; load models</button>
+      <div id="modelStatus" class="modal__status"></div>
+
+      <div class="field">
+        <label for="setModel">Model <span id="modelCost" class="model-cost"></span></label>
+        <select id="setModel"></select>
+      </div>
+
       <div class="modal__actions">
         <button class="btn btn--ghost" id="setCancel">Cancel</button>
         <button class="btn btn--run" id="setSave">Save</button>

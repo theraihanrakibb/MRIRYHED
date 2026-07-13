@@ -24,17 +24,18 @@
 
 ## What's inside
 
-MRIRYHED collects four independently-shippable web products under a single identity, plus a
-machine-learning collection. Every web app is **self-contained vanilla HTML/CSS/JS — no build
-step, no framework, no install**. Open the file and it works.
+MRIRYHED collects four independently-shippable web products under a single identity. Every web
+app is **self-contained vanilla HTML/CSS/JS — no build step, no framework, no install**. Open the
+file and it works. The machine-learning work lives in its own repo:
+[**ML-DL-AI**](https://github.com/theraihanrakibb/ML-DL-AI).
 
 | App | Folder | What it does | Stack |
 |-----|--------|--------------|-------|
 | **MRIRYHED Weather** | [`weather-dashboard/`](weather-dashboard) | iPhone-style multi-location weather with live geolocation, weather-reactive scenes, notes & light/dark theme. | Vanilla JS · OpenWeatherMap · Geolocation |
-| **MRIRYHED Code** | [`online-code-editor/`](online-code-editor) | In-browser IDE that **runs JS & Python** (Pyodide) and routes other languages to the **Forge Agent** (LLM). | Vanilla JS · Pyodide · LLM API |
+| **MRIRYHED Code** | [`online-code-editor/`](online-code-editor) | In-browser IDE that **runs JS & Python** (Pyodide) and routes other languages to the **MRIRYHED Agent** (LLM). | Vanilla JS · Pyodide · LLM API |
 | **MRIRYHED Zodiac** | [`zodiac-calculator/`](zodiac-calculator) | Cosmic profile: Western + Chinese zodiac + MBTI with a generated summary & compatibility check. | Vanilla JS |
-| **MRIRYHED Chat** | [`chatx/`](chatx) | Realtime social — chat, feed, friends & a wallet. **100% client-side**, syncs live across tabs. | Vanilla JS · BroadcastChannel · localStorage |
-| **MRIRYHED Mind** | [`machine-learning-projects/`](machine-learning-projects) | 8 ML mini-projects: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
+| **MRIRYHED Chat** | [`chatx/client/`](chatx/client) | Realtime social — chat, feed, friends & a wallet. Client-side by default, with **optional Node + WebSocket server** for true cross-device realtime. | Vanilla JS · WebSocket · localStorage |
+| **ML / DL / AI** | [theraihanrakibb/ML-DL-AI](https://github.com/theraihanrakibb/ML-DL-AI) | 8 ML mini-projects: classification, regression, clustering & a recommender. | Python · Jupyter · scikit-learn |
 
 ---
 
@@ -64,16 +65,21 @@ python -m http.server 8000
 ```
 
 > Tip: open **MRIRYHED Chat** in two browser tabs with different usernames to see realtime
-> sync, and try **MRIRYHED Code**'s ▶ Run (JS/Python) or the 🤖 Forge Agent.
+> sync, and try **MRIRYHED Code**'s ▶ Run (JS/Python) or the 🤖 MRIRYHED Agent.
 
 ---
 
 ## Per-product setup
 
 - **MRIRYHED Weather** — ships with a free OpenWeatherMap key; works offline via a built-in mock dataset.
-- **MRIRYHED Code** — JS runs in a sandbox; Python via Pyodide CDN. The Forge Agent needs an
-  OpenAI-compatible API key (entered in-app Settings, stored locally).
-- **MRIRYHED Mind** — `pip install -r machine-learning-projects/requirements.txt && jupyter notebook`.
+- **MRIRYHED Code** — JS runs in a sandbox; Python via Pyodide CDN. The MRIRYHED Agent works with
+  **any OpenAI-compatible provider** (OpenAI, Anthropic, Google, Mistral, NVIDIA, DeepSeek, Alibaba,
+  Z.ai, BAAI and more). Pick a provider, add your key, validate to load models, then choose by token cost.
+- **MRIRYHED Chat** — client-side first: it just works from `chatx/client/`. For real cross-device
+  realtime, run the included zero-dependency server: `cd chatx/server && npm start` (or `node server.js`),
+  then open the page — the client auto-connects.
+- **ML / DL / AI** — lives at [theraihanrakibb/ML-DL-AI](https://github.com/theraihanrakibb/ML-DL-AI):
+  `pip install -r requirements.txt && jupyter notebook`.
 
 See each folder's `README.md` for details.
 
