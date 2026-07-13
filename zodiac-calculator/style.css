@@ -54,7 +54,7 @@ body {
 
 /* ---------------- main card ---------------- */
 .card {
-    position: relative; z-index: 1; width: 100%; max-width: 580px;
+    position: relative; z-index: 1; width: 100%; max-width: 760px;
     padding: 38px 34px 30px; border-radius: var(--radius);
     background: var(--glass); border: 1px solid var(--glass-brd);
     -webkit-backdrop-filter: blur(26px) saturate(150%); backdrop-filter: blur(26px) saturate(150%);
@@ -193,38 +193,15 @@ body {
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-/* ---------------- compatibility ---------------- */
-.compat { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--glass-brd); }
-.compat__title { font-family: var(--font-disp); font-size: 1.2rem; font-weight: 700; }
-.compat__hint { font-size: 0.82rem; color: var(--muted); margin: 6px 0 14px; font-weight: 400; }
-.compat__btn {
-    width: 100%; margin-top: 14px; padding: 14px; border: 1px solid var(--glass-brd);
-    border-radius: 14px; background: var(--glass-2); color: var(--text);
-    font-family: var(--font-disp); font-weight: 700; font-size: 0.95rem; cursor: pointer;
-    transition: border-color 0.25s var(--ease), transform 0.16s var(--ease), background 0.25s var(--ease);
-}
-.compat__btn:hover { border-color: var(--accent); transform: translateY(-2px); }
-.compat__btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--glow); }
-
-.compat__result {
-    margin-top: 16px; text-align: center; background: var(--glass-2);
-    border: 1px solid var(--glass-brd); border-radius: 20px; padding: 22px;
-    animation: pop 0.5s var(--ease) both;
-}
+/* shared pop animation (also used by the Cosmic Match result) */
 @keyframes pop { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: none; } }
-.compat__pct {
-    font-family: var(--font-disp); font-size: 3.2rem; font-weight: 800; letter-spacing: -1px;
-    background: linear-gradient(120deg, #ffffff, #a5b4fc 60%, #67e8f9);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.compat__result p { font-size: 0.86rem; color: var(--muted); margin-top: 6px; font-weight: 400; }
 
 /* ---------------- footnote + brand footer ---------------- */
 .footnote { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--glass-brd); text-align: center; font-size: 0.78rem; color: #6f80a8; }
 
 .brand-foot {
     position: relative; z-index: 1; text-align: center; padding: 18px 22px 4px;
-    border-top: 1px solid var(--glass-brd); max-width: 580px; width: 100%;
+    border-top: 1px solid var(--glass-brd); max-width: 760px; width: 100%;
     display: flex; flex-direction: column; align-items: center; gap: 5px;
     font-family: var(--font-body);
     background: var(--glass); border-radius: 16px;
@@ -294,17 +271,15 @@ body {
 :root[data-theme="light"] .mbti-tag { color: #4a5578; background: #fff; }
 :root[data-theme="light"] .mbti-tag:hover { color: #1a2138; border-color: rgba(124, 58, 237, 0.4); }
 :root[data-theme="light"] .mbti-tag.selected { color: #fff; }
-:root[data-theme="light"] .pcard, :root[data-theme="light"] .compat__result { background: #fff; border-color: rgba(40, 50, 110, 0.12); }
+:root[data-theme="light"] .pcard { background: #fff; border-color: rgba(40, 50, 110, 0.12); }
 :root[data-theme="light"] .pcard__icon { background: linear-gradient(140deg, rgba(124, 58, 237, 0.18), rgba(14, 116, 144, 0.16)); }
 :root[data-theme="light"] .pcard__traits { color: #7c3aed; background: rgba(124, 58, 237, 0.1); border-color: rgba(124, 58, 237, 0.24); }
-:root[data-theme="light"] .pcard__desc, :root[data-theme="light"] .sub, :root[data-theme="light"] .compat__hint, :root[data-theme="light"] .compat__result p { color: #5b6a8f; }
+:root[data-theme="light"] .pcard__desc, :root[data-theme="light"] .sub { color: #5b6a8f; }
 :root[data-theme="light"] .summary { color: #1a2138; background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(14, 116, 144, 0.1)); }
 :root[data-theme="light"] .summary p {
     background: linear-gradient(120deg, #1a2138, #4c1d95 70%, #0e7490);
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-:root[data-theme="light"] .compat__btn { background: #fff; color: var(--text); border-color: rgba(40, 50, 110, 0.16); }
-:root[data-theme="light"] .compat__pct { background: linear-gradient(120deg, #6d28d9, #0e7490); -webkit-background-clip: text; background-clip: text; color: transparent; }
 :root[data-theme="light"] .footnote { color: #8a93b8; border-color: rgba(40, 50, 110, 0.12); }
 :root[data-theme="light"] .brand-foot {
     background: rgba(255, 255, 255, 0.62); border-color: rgba(40, 50, 110, 0.12);
@@ -327,4 +302,84 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   COSMIC MATCH — two-soul compatibility
+   ============================================================ */
+.match { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--glass-brd); }
+.match__title { font-family: var(--font-disp); font-size: 1.3rem; font-weight: 800; letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px; }
+.match__hint { font-size: 0.82rem; color: var(--muted); margin: 6px 0 18px; font-weight: 400; }
+
+.match__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.mcard {
+    min-width: 0;
+    background: var(--glass-2); border: 1px solid var(--glass-brd); border-radius: 20px;
+    padding: 16px 14px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    animation: cardIn 0.55s var(--ease) both;
+}
+.mcard:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.26); box-shadow: 0 18px 38px -18px var(--glow); }
+.mcard__head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; gap: 8px 10px; }
+.mcard__who { font-family: var(--font-disp); font-weight: 800; font-size: 1rem; color: var(--text); }
+
+.gender { display: flex; gap: 4px; background: var(--chip); border: 1px solid var(--glass-brd); border-radius: 999px; padding: 3px; }
+.gender__btn {
+    border: none; background: transparent; color: var(--muted); cursor: pointer;
+    font-family: var(--font-disp); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.4px;
+    padding: 6px 12px; border-radius: 999px; transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.gender__btn.selected { background: linear-gradient(135deg, var(--accent), #6d28d9); color: #fff; box-shadow: 0 8px 18px -8px var(--glow); }
+.gender__btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--glow); }
+
+.mcard__date { margin-bottom: 12px; }
+.mcard__date input { padding: 12px 8px; font-size: 0.92rem; text-align: center; }
+.mcard__mbti { gap: 7px; }
+.mcard__mbti .mbti-tag { min-width: 0; flex: 1 1 22%; font-size: 0.76rem; padding: 9px 6px; }
+
+.match__btn {
+    width: 100%; margin-top: 16px; padding: 15px; border: none; border-radius: 16px; cursor: pointer;
+    font-family: var(--font-disp); font-weight: 800; font-size: 1.02rem; color: #fff; letter-spacing: 0.5px;
+    background: linear-gradient(120deg, var(--accent-3), var(--accent));
+    box-shadow: 0 16px 34px -10px rgba(244, 114, 182, 0.45);
+    transition: transform 0.16s var(--ease), box-shadow 0.25s var(--ease);
+    position: relative; overflow: hidden;
+}
+.match__btn:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -12px rgba(244, 114, 182, 0.5); }
+.match__btn:active { transform: translateY(1px); }
+.match__btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--glow); }
+
+.match__result {
+    margin-top: 18px; text-align: center; background: var(--glass-2);
+    border: 1px solid var(--glass-brd); border-radius: 22px; padding: 24px 20px;
+    animation: pop 0.5s var(--ease) both;
+}
+.match__pct {
+    font-family: var(--font-disp); font-size: 3.6rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1;
+    background: linear-gradient(120deg, #ffffff, #f0abfc 55%, #67e8f9);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.match__verdict { font-family: var(--font-disp); font-size: 1.02rem; font-weight: 700; margin-top: 8px; color: var(--text); }
+.match__bars { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.mbar__top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.mbar__name { font-family: var(--font-disp); font-size: 0.74rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-2); font-weight: 700; }
+.mbar__score { font-family: var(--font-disp); font-weight: 800; font-size: 1.05rem; color: var(--text); }
+.mbar__track { height: 8px; border-radius: 999px; background: var(--chip); border: 1px solid var(--glass-brd); overflow: hidden; }
+.mbar__fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(120deg, var(--accent), var(--accent-2)); transition: width 0.6s var(--ease); }
+.mbar__note { font-size: 0.76rem; color: var(--muted); margin-top: 6px; font-weight: 400; line-height: 1.45; }
+
+/* ---------------- light-theme overrides for match ---------------- */
+:root[data-theme="light"] .mcard, :root[data-theme="light"] .match__result { background: #fff; border-color: rgba(40, 50, 110, 0.12); }
+:root[data-theme="light"] .mcard__who, :root[data-theme="light"] .match__verdict { color: var(--text); }
+:root[data-theme="light"] .gender { background: #fff; }
+:root[data-theme="light"] .gender__btn { color: #5b6a8f; }
+:root[data-theme="light"] .match__pct { background: linear-gradient(120deg, #6d28d9, #be185d 55%, #0e7490); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-theme="light"] .mbar__name { color: #0e7490; }
+:root[data-theme="light"] .mbar__score { color: var(--text); }
+:root[data-theme="light"] .mbar__track { background: #f1f4fc; }
+:root[data-theme="light"] .mbar__note { color: #5b6a8f; }
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 540px) {
+    .match__cards { grid-template-columns: 1fr; }
 }

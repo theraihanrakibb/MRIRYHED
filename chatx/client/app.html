@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MRIRYHED Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="chatapp" id="app">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-head">
+        <div class="sb-title">MRIRYHED <span>Chat</span></div>
+        <div class="sb-actions">
+          <button id="newChatBtn" class="iconbtn" title="New chat / add friend">✚</button>
+          <button id="menuBtn" class="iconbtn" title="Menu">☰</button>
+        </div>
+      </div>
+      <div class="sb-search"><input id="searchInput" placeholder="Search or start a new chat" autocomplete="off" /></div>
+      <ul class="conv-list" id="convList"></ul>
+      <div class="sb-me">
+        <span class="avatar" id="meAvatar">?</span>
+        <div class="sb-me-info"><b id="meName">—</b><span id="meStatus">online</span></div>
+        <button class="iconbtn theme-toggle" id="themeToggle" title="Toggle theme">☀︎</button>
+      </div>
+    </aside>
+
+    <!-- CHAT THREAD -->
+    <section class="thread" id="thread">
+      <div class="thread__welcome" id="welcome">
+        <div class="welcome__logo">✕</div>
+        <h2>Welcome to MRIRYHED Chat</h2>
+        <p>Pick a conversation on the left — or start with <b>MRIRYHED Agent</b>, your built-in AI assistant.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- MENU DRAWER -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" hidden>
+    <div class="drawer__head">
+      <h3 id="drawerTitle">Menu</h3>
+      <button class="iconbtn" id="drawerClose" title="Close">✕</button>
+    </div>
+    <nav class="drawer__nav">
+      <button class="dnav is-active" data-view="feed">📣 Feed</button>
+      <button class="dnav" data-view="friends">🤝 Friends</button>
+      <button class="dnav" data-view="invite">✉️ Invite</button>
+      <button class="dnav" data-view="wallet">💳 Wallet</button>
+      <button class="dnav" data-view="profile">👤 Profile</button>
+    </nav>
+    <div class="drawer__body" id="drawerBody"></div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="brand-foot">
+    <span class="bf-brand">MRIRYHED</span>
+    <span class="bf-tag">Three worlds. One name. Eternal.</span>
+    <span class="bf-pow">Powered by MRIRYHED</span>
+  </footer>
+
+  <script src="relay.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

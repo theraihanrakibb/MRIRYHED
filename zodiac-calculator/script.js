@@ -113,29 +113,182 @@
   }
   $("checkBtn").addEventListener("click", reveal);
 
-  /* ---------------- compatibility ---------------- */
+  /* ---------------- element compatibility table (shared by Cosmic Match) ---------------- */
   const ELEM_COMPAT = { Fire: { Fire: 8, Air: 9, Earth: 5, Water: 5 }, Air: { Fire: 9, Air: 8, Earth: 6, Water: 6 }, Earth: { Fire: 5, Air: 6, Earth: 9, Water: 7 }, Water: { Fire: 5, Air: 6, Earth: 7, Water: 9 } };
-  function compatWith(pYear, pMonth, pDay) {
-    const aSign = getWestern(+monthI.value, +dayI.value);
-    const bSign = getWestern(pMonth, pDay);
-    const aW = WEST[aSign], bW = WEST[bSign];
-    const aE = getElement(+yearI.value), bE = getElement(pYear);
-    const aC = getChineseAnimal(+yearI.value), bC = getChineseAnimal(pYear);
-    let s = 50 + (ELEM_COMPAT[aW.element][bW.element] - 6) * 4;
-    if (aE === bE) s += 8; if (aC === bC) s += 6; if (aSign === bSign) s += 10;
-    s += Math.floor(Math.random() * 7) - 3;
-    return Math.max(28, Math.min(99, Math.round(s)));
+
+  /* ---------------- cosmic match ---------------- */
+  const MATCH_TYPES = Object.keys(MBTI);
+  let mSel = "ENTJ", pSel = "ENFP";
+  let mGender = "Male", pGender = "Female";
+
+  function buildMatchChips(containerId, side) {
+    const c = $(containerId);
+    MATCH_TYPES.forEach((type) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "mbti-tag"; b.dataset.mbti = type; b.textContent = type;
+      if (type === (side === "m" ? mSel : pSel)) b.classList.add("selected");
+      b.addEventListener("click", () => {
+        c.querySelectorAll(".mbti-tag").forEach((x) => x.classList.remove("selected"));
+        b.classList.add("selected");
+        if (side === "m") mSel = type; else pSel = type;
+        computeMatch();
+      });
+      c.appendChild(b);
+    });
   }
-  $("compatBtn").addEventListener("click", () => {
-    const py = +$("pYear").value, pm = +$("pMonth").value, pd = +$("pDay").value;
-    if (!py || !pm || !pd) { alert("Enter your partner's birth date."); return; }
-    const pct = compatWith(py, pm, pd);
-    $("compatPct").textContent = pct + "%";
-    $("compatDesc").textContent = pct >= 80 ? "Cosmic match — your energies dance in sync." :
-      pct >= 60 ? "Strong potential — a few differences keep it interesting." :
-      pct >= 45 ? "Balanced bond — opposites that can complement." : "Different wavelengths — but every pair can learn.";
-    $("compatResult").hidden = false;
+  buildMatchChips("mMBTI", "m");
+  buildMatchChips("pMBTI2", "p");
+
+  $("mYear").value = 1998; $("mMonth").value = 5; $("mDay").value = 15;
+  $("pYear2").value = 2000; $("pMonth2").value = 10; $("pDay2").value = 22;
+
+  document.querySelectorAll(".gender").forEach((g) => {
+    const side = g.dataset.side;
+    g.querySelectorAll(".gender__btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        g.querySelectorAll(".gender__btn").forEach((x) => x.classList.remove("selected"));
+        btn.classList.add("selected");
+        const gen = btn.dataset.gender;
+        if (side === "m") { mGender = gen; $("mWho").textContent = (gen === "Male" ? "♂ " : "♀ ") + "Mine"; }
+        else { pGender = gen; $("pWho").textContent = (gen === "Male" ? "♂ " : "♀ ") + "Partner"; }
+      });
+    });
   });
+
+  /* chinese zodiac relation tables */
+  const TRIADS = [["Rat","Dragon","Monkey"],["Ox","Snake","Rooster"],["Tiger","Horse","Dog"],["Rabbit","Goat","Pig"]];
+  const HARMONY = [["Rat","Ox"],["Tiger","Pig"],["Rabbit","Dog"],["Dragon","Rooster"],["Snake","Monkey"],["Horse","Goat"]];
+  const CONFLICT = [["Rat","Horse"],["Ox","Goat"],["Tiger","Monkey"],["Rabbit","Rooster"],["Dragon","Dog"],["Snake","Pig"]];
+  const HARM = [["Rat","Goat"],["Ox","Horse"],["Tiger","Snake"],["Rabbit","Dragon"],["Monkey","Pig"],["Dog","Rooster"]];
+  const pkey = (a, b) => [a, b].sort().join("|");
+  const HARMONY_SET = new Set(HARMONY.map((p) => pkey(p[0], p[1])));
+  const CONFLICT_SET = new Set(CONFLICT.map((p) => pkey(p[0], p[1])));
+  const HARM_SET = new Set(HARM.map((p) => pkey(p[0], p[1])));
+  const TRIAD_SET = new Set();
+  TRIADS.forEach((t) => { for (let i = 0; i < t.length; i++) for (let j = i + 1; j < t.length; j++) TRIAD_SET.add(pkey(t[i], t[j])); });
+
+  /* five-element productive (generates) and controlling (overcomes) cycles */
+  const GEN = { Wood: "Fire", Fire: "Earth", Earth: "Metal", Metal: "Water", Water: "Wood" };
+  const CON = { Wood: "Earth", Earth: "Water", Water: "Fire", Fire: "Metal", Metal: "Wood" };
+
+  /* curated MBTI affinity sets (sorted keys) */
+  const GOLDEN = new Set([
+    "ENFP|INFJ","ENFP|INTJ","ENFJ|INFP","ENFJ|ISFP","ENTJ|INFP","ENTJ|ISFP",
+    "ENTP|INFJ","ENTP|INTJ","ESFP|ISFJ","ESFP|ISTJ","ESTP|ISFJ","ESFJ|ISFP",
+    "INFP|ENFJ","INFJ|ENFP","INTJ|ENFP","ISFJ|ESFP","ISFJ|ESTP","ISFP|ENFJ",
+    "ISFP|ENTJ","ISTJ|ESFP","ISTP|ESFJ","INTP|ENTJ"
+  ]);
+  const ROCKY = new Set([
+    "ENFP|ISTJ","ENTP|ISFJ","INFP|ESTJ","INTP|ESFJ","ESFP|INTJ","ESTP|INFJ",
+    "ISFJ|ENTP","ESTJ|INFP","ESFJ|INTP","INTJ|ESFP","INFJ|ESTP","ISTJ|ENFP"
+  ]);
+
+  const WPHRASE = {
+    "Air|Air": "Twin Air — endless conversation and ideas",
+    "Air|Earth": "Air and Earth — ideas grounded in reality",
+    "Air|Fire": "Air feeds Fire — lively and free-spirited",
+    "Air|Water": "Air and Water — talk that flows into feeling",
+    "Earth|Earth": "Twin Earth — loyal, sensible, unshakable",
+    "Earth|Fire": "Fire meets Earth — passion tempered by steadiness",
+    "Earth|Water": "Earth and Water — nurturing and rooted",
+    "Fire|Fire": "Twin Fire — bold, intense, never boring",
+    "Fire|Water": "Fire and Water — a dynamic, testing tension",
+    "Water|Water": "Twin Water — deeply emotional and intuitive",
+  };
+
+  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+
+  function westernScore(sA, sB) {
+    const sc = ELEM_COMPAT[WEST[sA].element][WEST[sB].element];        /* 5..9 */
+    return Math.round(40 + (sc - 5) * 15);                            /* 40..100 */
+  }
+  function chineseScore(yA, yB) {
+    const a = getChineseAnimal(yA), b = getChineseAnimal(yB);
+    const ea = getElement(yA), eb = getElement(yB);
+    const k = pkey(a, b);
+    let base;
+    if (a === b) base = 76;
+    else if (HARMONY_SET.has(k)) base = 90;
+    else if (TRIAD_SET.has(k)) base = 78;
+    else if (CONFLICT_SET.has(k)) base = 40;
+    else if (HARM_SET.has(k)) base = 47;
+    else base = 62;
+    let eb2 = 0;
+    if (ea === eb) eb2 = 10;
+    else if (GEN[ea] === eb || GEN[eb] === ea) eb2 = 5;
+    else if (CON[ea] === eb || CON[eb] === ea) eb2 = -5;
+    return clamp(Math.round(base + eb2), 0, 100);
+  }
+  function mbtiScore(a, b) {
+    let s = 50;
+    s += (a[1] === b[1]) ? (a[1] === "N" ? 18 : 12) : -12;   /* N/S strongest */
+    s += (a[2] === b[2]) ? 8 : 4;                            /* T/F */
+    s += (a[0] === b[0]) ? 6 : 4;                            /* E/I */
+    s += (a[3] === b[3]) ? 8 : 4;                            /* J/P */
+    const k = pkey(a, b);
+    if (GOLDEN.has(k)) s += 12;
+    if (ROCKY.has(k)) s -= 14;
+    return clamp(Math.round(s), 0, 100);
+  }
+
+  function computeMatch() {
+    const my = +$("mYear").value, mm = +$("mMonth").value, md = +$("mDay").value;
+    const py = +$("pYear2").value, pm = +$("pMonth2").value, pd = +$("pDay2").value;
+    const bad = (y, m, d) => !y || !m || !d || m < 1 || m > 12 || d < 1 || d > 31;
+    if (bad(my, mm, md) || bad(py, pm, pd)) { $("matchResult").hidden = true; return; }
+
+    const wA = getWestern(mm, md), wB = getWestern(pm, pd);
+    const aAn = getChineseAnimal(my), bAn = getChineseAnimal(py);
+    const aEl = getElement(my), bEl = getElement(py);
+
+    const w = westernScore(wA, wB);
+    const c = chineseScore(my, py);
+    const m = mbtiScore(mSel, pSel);
+    const overall = Math.round(w * 0.35 + c * 0.35 + m * 0.30);
+
+    $("matchPct").textContent = overall + "%";
+    $("matchVerdict").textContent =
+      overall >= 85 ? "Cosmic match — your worlds interlock" :
+      overall >= 70 ? "Strong potential — momentum favors you" :
+      overall >= 55 ? "Balanced bond — differences that complement" :
+                      "Different wavelengths — but every pair can grow";
+
+    $("westScore").textContent = w + "%";
+    $("westFill").style.width = w + "%";
+    $("westNote").textContent = `${WEST[wA].element} + ${WEST[wB].element} = ${WPHRASE[pkey(WEST[wA].element, WEST[wB].element)]}`;
+
+    const ck = pkey(aAn, bAn);
+    let cRel;
+    if (aAn === bAn) cRel = "Same sign — instant understanding";
+    else if (HARMONY_SET.has(ck)) cRel = "Six harmony — effortless unity";
+    else if (TRIAD_SET.has(ck)) cRel = "Allied signs — naturally in sync";
+    else if (CONFLICT_SET.has(ck)) cRel = "Six conflict — sparks needing patience";
+    else if (HARM_SET.has(ck)) cRel = "Mild friction — needs a little give";
+    else cRel = "Steady pairing — comfortable and calm";
+    const cElNote = aEl === bEl ? ` · shared ${aEl} element` : "";
+    $("chinaScore").textContent = c + "%";
+    $("chinaFill").style.width = c + "%";
+    $("chinaNote").textContent = `${aAn} (${aEl}) + ${bAn} (${bEl}) = ${cRel}${cElNote}`;
+
+    const mk = pkey(mSel, pSel);
+    let mRel;
+    if (mSel === pSel) mRel = "Same type — deep mutual understanding";
+    else if (GOLDEN.has(mk)) mRel = "Magnetic, well-balanced pair";
+    else if (ROCKY.has(mk)) mRel = "Opposites who meet halfway";
+    else if (mSel[1] === pSel[1] && mSel[1] === "N") mRel = "Shared intuition — you read each other's minds";
+    else if (mSel[1] === pSel[1] && mSel[1] === "S") mRel = "Shared practicality — a grounded team";
+    else mRel = "Different lenses — curiosity keeps it fresh";
+    $("mbtiScore").textContent = m + "%";
+    $("mbtiFill").style.width = m + "%";
+    $("mbtiNote").textContent = `${mSel} + ${pSel} = ${mRel}`;
+
+    $("matchResult").hidden = false;
+  }
+
+  ["mYear","mMonth","mDay","pYear2","pMonth2","pDay2"].forEach((id) =>
+    $(id).addEventListener("input", computeMatch));
+  $("matchBtn").addEventListener("click", computeMatch);
+  computeMatch();
 
   /* ---------------- theme ---------------- */
   (function () {

@@ -88,18 +88,66 @@
             </div>
         </section>
 
-        <section class="compat" id="compat">
-            <h3 class="compat__title">💞 Compatibility</h3>
-            <p class="compat__hint">Enter a partner's birth date to see how your cosmic energies align.</p>
-            <div class="row">
-                <input type="number" id="pYear" placeholder="partner year" min="1920" max="2026" aria-label="partner year">
-                <input type="number" id="pMonth" placeholder="mo" min="1" max="12" aria-label="partner month">
-                <input type="number" id="pDay" placeholder="day" min="1" max="31" aria-label="partner day">
+        <section class="match" id="match">
+            <h3 class="match__title">✦ Cosmic Match</h3>
+            <p class="match__hint">Two souls, three systems. Your full compatibility updates live as you type.</p>
+
+            <div class="match__cards">
+                <article class="mcard">
+                    <header class="mcard__head">
+                        <span class="mcard__who" id="mWho">♂ Mine</span>
+                        <div class="gender" data-side="m">
+                            <button type="button" class="gender__btn selected" data-gender="Male">Male</button>
+                            <button type="button" class="gender__btn" data-gender="Female">Female</button>
+                        </div>
+                    </header>
+                    <div class="row mcard__date">
+                        <input type="number" id="mYear" placeholder="year" min="1920" max="2026" aria-label="Mine year">
+                        <input type="number" id="mMonth" placeholder="mo" min="1" max="12" aria-label="Mine month">
+                        <input type="number" id="mDay" placeholder="day" min="1" max="31" aria-label="Mine day">
+                    </div>
+                    <div class="mbti-grid mcard__mbti" id="mMBTI"></div>
+                </article>
+
+                <article class="mcard">
+                    <header class="mcard__head">
+                        <span class="mcard__who" id="pWho">♀ Partner</span>
+                        <div class="gender" data-side="p">
+                            <button type="button" class="gender__btn" data-gender="Male">Male</button>
+                            <button type="button" class="gender__btn selected" data-gender="Female">Female</button>
+                        </div>
+                    </header>
+                    <div class="row mcard__date">
+                        <input type="number" id="pYear2" placeholder="year" min="1920" max="2026" aria-label="Partner year">
+                        <input type="number" id="pMonth2" placeholder="mo" min="1" max="12" aria-label="Partner month">
+                        <input type="number" id="pDay2" placeholder="day" min="1" max="31" aria-label="Partner day">
+                    </div>
+                    <div class="mbti-grid mcard__mbti" id="pMBTI2"></div>
+                </article>
             </div>
-            <button class="compat__btn" id="compatBtn">Check Match</button>
-            <div class="compat__result" id="compatResult" hidden>
-                <div class="compat__pct" id="compatPct">—</div>
-                <p id="compatDesc">—</p>
+
+            <button class="match__btn" id="matchBtn">Match ✦</button>
+
+            <div class="match__result" id="matchResult" hidden>
+                <div class="match__pct" id="matchPct">—</div>
+                <p class="match__verdict" id="matchVerdict">—</p>
+                <div class="match__bars">
+                    <div class="mbar">
+                        <div class="mbar__top"><span class="mbar__name">Western</span><span class="mbar__score" id="westScore">—</span></div>
+                        <div class="mbar__track"><div class="mbar__fill" id="westFill"></div></div>
+                        <p class="mbar__note" id="westNote">—</p>
+                    </div>
+                    <div class="mbar">
+                        <div class="mbar__top"><span class="mbar__name">Chinese</span><span class="mbar__score" id="chinaScore">—</span></div>
+                        <div class="mbar__track"><div class="mbar__fill" id="chinaFill"></div></div>
+                        <p class="mbar__note" id="chinaNote">—</p>
+                    </div>
+                    <div class="mbar">
+                        <div class="mbar__top"><span class="mbar__name">MBTI</span><span class="mbar__score" id="mbtiScore">—</span></div>
+                        <div class="mbar__track"><div class="mbar__fill" id="mbtiFill"></div></div>
+                        <p class="mbar__note" id="mbtiNote">—</p>
+                    </div>
+                </div>
             </div>
         </section>
 
