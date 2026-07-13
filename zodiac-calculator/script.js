@@ -46,6 +46,10 @@
     ISTP:  { nick: "The Virtuoso",     desc: "Cool-handed tinkerer; you fix things by understanding how they work." },
     ESTP:  { nick: "The Entrepreneur", desc: "Bold risk-taker; you act first and figure out the rules later." },
   };
+  const CHINA_ICON = {
+    Rat: "🐭", Ox: "🐂", Tiger: "🐯", Rabbit: "🐰", Dragon: "🐲", Snake: "🐍",
+    Horse: "🐴", Goat: "🐐", Monkey: "🐵", Rooster: "🐔", Dog: "🐶", Pig: "🐷",
+  };
 
   /* ---------------- helpers ---------------- */
   function getWestern(m, d) {
@@ -92,7 +96,7 @@
     $("westMeta").textContent = `${W.element} · ruled by ${W.planet}`;
     $("westTraits").textContent = W.traits; $("westDesc").textContent = W.desc;
 
-    $("chinaIcon").textContent = "🐉"; $("chinaName").textContent = `${c} (${e})`;
+    $("chinaIcon").textContent = CHINA_ICON[c] || "🐉"; $("chinaName").textContent = `${c} (${e})`;
     $("chinaMeta").textContent = `${e} element year`;
     $("chinaTraits").textContent = C.traits; $("chinaDesc").textContent = C.desc;
 
