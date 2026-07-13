@@ -102,7 +102,7 @@ body {
 .row input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow); }
 
 /* ---------------- MBTI tags ---------------- */
-.mbti-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.mbti-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
 .mbti-tag {
     flex: 1 0 auto; min-width: 66px; padding: 12px 10px; border-radius: 14px;
     border: 1px solid var(--glass-brd); background: var(--chip); color: #cdd9f7;
@@ -296,9 +296,11 @@ body {
     .row { gap: 9px; }
     .row input { padding: 13px 12px; }
     .theme-toggle { top: 14px; right: 14px; width: 42px; height: 42px; }
+    .mbti-grid { grid-template-columns: repeat(4, 1fr); }
+    .mcard__mbti { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 380px) {
-    .mbti-tag { min-width: calc(33.333% - 7px); flex-basis: calc(33.333% - 7px); }
+    .mbti-tag { min-width: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -334,8 +336,8 @@ body {
 
 .mcard__date { margin-bottom: 12px; }
 .mcard__date input { padding: 12px 8px; font-size: 0.92rem; text-align: center; }
-.mcard__mbti { gap: 7px; }
-.mcard__mbti .mbti-tag { min-width: 0; flex: 1 1 22%; font-size: 0.76rem; padding: 9px 6px; }
+.mcard__mbti { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.mcard__mbti .mbti-tag { min-width: 0; font-size: 0.76rem; padding: 9px 4px; }
 
 .match__btn {
     width: 100%; margin-top: 16px; padding: 15px; border: none; border-radius: 16px; cursor: pointer;
