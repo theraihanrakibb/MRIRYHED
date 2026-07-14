@@ -222,7 +222,7 @@
         <button class="iconbtn thread__back" id="backBtn" title="Back">‹</button>
         <span class="avatar ${ai ? "avatar--ai" : ""}">${ai ? "🤖" : av(name)}${ai ? "" : (isOnline(name) ? '<span class="dot on"></span>' : "")}</span>
         <div class="thread__who"><b>${ai ? "MRIRYHED" : esc(name)}</b><span>${ai ? "AI assistant · powered by MRIRYHED" : (isOnline(name) ? "online" : "offline")}</span></div>
-        ${ai ? "" : '<button class="iconbtn thread__call" data-call="voice" title="Voice call">📞</button><button class="iconbtn thread__call" data-call="video" title="Video call">📹</button>'}
+        <button class="iconbtn thread__call" data-call="voice" title="Voice call">📞</button><button class="iconbtn thread__call" data-call="video" title="Video call">📹</button>
       </header>
       <div class="msgs" id="msgBox"></div>
       <form class="composer" id="composer">
@@ -238,8 +238,6 @@
           <button type="submit" class="sendbtn">Send</button>
         </div>
       </form>
-      <div class="emoji-pop" id="emojiPop" hidden></div>
-      <div class="sticker-pop" id="stickerPop" hidden></div>
       <input type="file" id="imgInput" accept="image/*" hidden />
       <input type="file" id="vidInput" accept="video/*" hidden />`;
     msgs.forEach(appendMessage);
@@ -317,20 +315,31 @@
     // file inputs
     $("imgInput").addEventListener("change", (e) => { const f = e.target.files[0]; if (f) fileToDataURL(f, (d) => sendMedia("image", d, "📷 Photo")); e.target.value = ""; hidePops(); });
     $("vidInput").addEventListener("change", (e) => { const f = e.target.files[0]; if (f) fileToDataURL(f, (d) => sendMedia("video", d, "🎬 Video")); e.target.value = ""; hidePops(); });
-    document.addEventListener("click", outsidePops);
   }
   function togglePop(pop, other) { other.hidden = true; pop.hidden = !pop.hidden; if (!pop.hidden) positionPop(pop); }
   function hidePops() { const a = $("emojiPop"), b = $("stickerPop"); if (a) a.hidden = true; if (b) b.hidden = true; }
-  function outsidePops(e) { if (!e.target.closest(".emoji-pop") && !e.target.closest('[data-act="emoji"]')) $("emojiPop").hidden = true; if (!e.target.closest(".sticker-pop") && !e.target.closest('[data-act="sticker"]')) $("stickerPop").hidden = true; }
-  function positionPop(pop) { const r = pop.getBoundingClientRect(); pop.style.left = Math.min(r.left, window.innerWidth - pop.offsetWidth - 12) + "px"; pop.style.bottom = (window.innerHeight - r.top + 8) + "px"; }
+  function outsidePops(e) {
+    const ep = $("emojiPop"), sp = $("stickerPop");
+    if (ep && !e.target.closest(".emoji-pop") && !e.target.closest('[data-act="emoji"]')) ep.hidden = true;
+    if (sp && !e.target.closest(".sticker-pop") && !e.target.closest('[data-act="sticker"]')) sp.hidden = true;
+  }
+  function positionPop(pop) {
+    const tool = document.querySelector(".composer__tools");
+    const w = pop.offsetWidth, h = pop.offsetHeight;
+    let left = 16, bottom = 76;
+    if (tool) { const r = tool.getBoundingClientRect(); left = r.left; bottom = window.innerHeight - r.top + 8; }
+    left = Math.max(12, Math.min(left, window.innerWidth - w - 12));
+    bottom = Math.max(12, Math.min(bottom, window.innerHeight - h - 12));
+    pop.style.left = left + "px"; pop.style.bottom = bottom + "px";
+  }
   function buildEmojiPop() {
-    const pop = $("emojiPop"); if (pop.childElementCount) return;
-    pop.className = "emoji-pop";
+    let pop = $("emojiPop"); if (!pop) { pop = document.createElement("div"); pop.id = "emojiPop"; pop.className = "emoji-pop"; pop.hidden = true; document.body.appendChild(pop); }
+    if (pop.childElementCount) return;
     EMOJIS.forEach((em) => { const s = document.createElement("button"); s.type = "button"; s.className = "emoji-cell"; s.textContent = em; s.addEventListener("click", () => { const i = $("msgInput"); if (i) { i.value += em; i.focus(); } }); pop.appendChild(s); });
   }
   function buildStickerPop() {
-    const pop = $("stickerPop"); if (pop.childElementCount) return;
-    pop.className = "sticker-pop";
+    let pop = $("stickerPop"); if (!pop) { pop = document.createElement("div"); pop.id = "stickerPop"; pop.className = "sticker-pop"; pop.hidden = true; document.body.appendChild(pop); }
+    if (pop.childElementCount) return;
     STICKERS.forEach((em) => { const s = document.createElement("button"); s.type = "button"; s.className = "sticker-cell"; s.textContent = em; s.addEventListener("click", () => { sendMedia("sticker", em); hidePops(); }); pop.appendChild(s); });
   }
   function fileToDataURL(file, cb) {
@@ -477,16 +486,12 @@
   }
 
   function renderFriends(body) {
-    const total = Object.keys(users).length;
     body.innerHTML = `
       <form class="addfriend" id="addFriendForm"><input id="friendInput" placeholder="Add friend by username" autocomplete="off" /><button type="submit">Add</button></form>
-      <h3 class="subhead">Your friends (${myFriends().length})</h3><ul class="people" id="friendsList"></ul>
-      <h3 class="subhead">Everyone on MRIRYHED · ${total} user${total === 1 ? "" : "s"}</h3><ul class="people" id="allList"></ul>`;
+      <h3 class="subhead">Your friends</h3><ul class="people" id="friendsList"></ul>`;
     const fl = body.querySelector("#friendsList");
-    if (!myFriends().length) fl.innerHTML = '<li class="person-empty">No friends yet — add one above or share your invite link.</li>';
+    if (!myFriends().length) fl.innerHTML = '<li class="person-empty">No friends yet — add one above or share your invite link (☰ → Invite).</li>';
     myFriends().forEach((f) => fl.appendChild(personItem(f)));
-    const al = body.querySelector("#allList");
-    Object.keys(users).filter((u) => u !== me && !myFriends().includes(u)).forEach((u) => al.appendChild(personItem(u)));
     body.querySelector("#addFriendForm").addEventListener("submit", (e) => {
       e.preventDefault(); const n = body.querySelector("#friendInput").value.trim(); if (!n || n === me) return;
       if (!users[n]) users[n] = { wallet: 5000, friends: [], unread: {}, archived: [] };
@@ -632,6 +637,7 @@
   })();
 
   /* ===================== boot ===================== */
+  document.addEventListener("click", outsidePops);
   load(); seed(); connectWS();
   $("meName").textContent = me; $("meAvatar").textContent = av(me);
   renderConversations();
